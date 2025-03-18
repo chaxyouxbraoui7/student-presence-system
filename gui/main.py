@@ -5,7 +5,7 @@ import sys
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
 from gui.upload_csv import upload_csv  # Use absolute import instead of relative
 
-# general func
+# geeneral func
 
 def start_program():
     root = tk.Tk()
