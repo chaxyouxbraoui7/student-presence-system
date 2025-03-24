@@ -9,7 +9,10 @@ def preprocess_image(image_path):
     gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
     _, thresholded = cv2.threshold(gray, 150, 255, cv2.THRESH_BINARY)
 
-    processed_folder = os.path.join(os.getcwd(), 'data', 'images_processed')
+    # Ensure we are referring to the project root directory
+    project_root = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))  # Get the root directory
+    processed_folder = os.path.join(project_root, 'data', 'processed')  # Folder inside the root
+
     if not os.path.exists(processed_folder):
         os.makedirs(processed_folder)
 
