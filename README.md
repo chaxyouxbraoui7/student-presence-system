@@ -3,29 +3,61 @@
 This is a Final Year Project (FYP) for the SMI department at "La Faculté Polydisciplinaire de Ouarzazate" - Ouarzazate - Morocco.
 The system is intended for educational use only.
 
-## Features
+## Features  
 
-- **CSV Upload**: Upload a CSV file with student data (ID, First Name, Last Name, Exam Number).
-- **Image Folder Upload**: Upload CIN card images for processing.
-- **Attendance Tracking**: Automatically compare extracted IDs with the CSV data and display attendance status as a table.
+This system provides three key functionalities:  
+
+- **Student Data Import:** Upload a CSV file containing student details (ID, First Name, Last Name, Exam Number).  
+- **CIN Card Processing:** Upload images of CIN cards for automatic identification.  
+- **Automated Attendance Tracking:** Extract CIN IDs, compare them with the CSV file, and generate an attendance report as a table.  
 
 ## Project Code Installation
 
-To set up the project on a local machine, follow the steps below:
+To set up the project on a local machine, follow the steps below :
 
-1. **Clone the repository:**
+**Python Version :**
+
+This project is compatible with :
+
+```bash
+Python 3.12.9
+```
+
+Ensure you have this version installed before proceeding.
+
+1. **Verify your Python version :**
+
+- To check your Python version, you can run : 
+
+```bash
+python --version
+```
+
+- If you have multiple Python versions, you can use :
+
+```bash
+python3 --version
+```
+
+2. **Clone the repository :**
 
 ```bash
    git clone https://github.com/chaxyouxbraoui7/student-presence-system.git
 ```
 
-2. **Create a virtual environment:**
+3. **Navigate to the project directory :**
+
+```bash
+cd student-presence-system
+```
+
+4. **Create a virtual environment :**
 
 ```bash
 python -m venv venv
 ```
 
-3. **Activate the virtual environment:**
+5. **Activate the virtual environment :**
 
 - On Windows:
 
@@ -39,19 +71,61 @@ python -m venv venv
 source venv/bin/activate
 ```
 
-4. **Install the required dependencies:**
+6. **Upgrade pip (Important) :**
 
 ```bash
-pip install -r requirements.txt
+pip install --upgrade pip
 ```
 
-5. **Then finally run the system:**
+7. **Install the required dependencies :**
+
+```bash
+python -m pip install -r requirements.txt
+```
+
+**If the above fails, you can try :**
+
+```bash
+pip install --no-cache-dir -r requirements.txt
+```
+
+8. **Then finally run the system :**
 
 ```bash
 python gui/main.py
 ```
 
+**Libraries Version :**
+
+```bash
+easyocr==1.7.2
+opencv-python==4.11.0.86
+opencv-python-headless==4.11.0.86
+pandas==2.2.3
+regex==2024.11.6
+torch==2.6.0
+torchvision==0.21.0
+```
+
+## Troubleshooting
+
+- **Issue :** `pip install` doesn't work.
+
+  **Solution :** Ensure you have activated the virtual environment before running `pip install`.
+
+- **Issue :** The program doesn't run or shows an error when starting.
+
+  **Solution 1 :** Ensure you have the correct Python version installed (3.12.9).
+
+  **Solution 2 :** Ensure you have navigated to the project directory by running `cd .\student-presence-system\`
+
+- **Issue :** The libraries don't install when running `pip install -r requirements.txt`.
+
+  **Solution :** Try installing them one by one, or run `pip install pandas opencv-python easyocr regex` or `pip install pandas opencv-python easyocr regex torch torchvision`.
+
 ## License
 
 This project is intended for educational purposes only and cannot be used commercially.
 Feel free to modify it for personal or academic use.
+
+**Contributions are welcome!** Feel free to submit **pull requests** or open an **issue** if you find a bug or have suggestions.
