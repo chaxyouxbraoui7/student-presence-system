@@ -100,11 +100,8 @@ python gui/main.py
 ```bash
 easyocr==1.7.2
 opencv-python==4.11.0.86
-opencv-python-headless==4.11.0.86
 pandas==2.2.3
 regex==2024.11.6
-torch==2.6.0
-torchvision==0.21.0
 ```
 
 ## Troubleshooting
