@@ -9,14 +9,5 @@ def preprocess_image(image_path):
     gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
     _, thresholded = cv2.threshold(gray, 150, 255, cv2.THRESH_BINARY)
 
-    # Ensure we are referring to the project root directory
-    project_root = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))  # Get the root directory
-    processed_folder = os.path.join(project_root, 'data', 'processed')  # Folder inside the root
-
-    if not os.path.exists(processed_folder):
-        os.makedirs(processed_folder)
-
-    processed_image_path = os.path.join(processed_folder, f'preprocessed_{os.path.basename(image_path)}')
-    cv2.imwrite(processed_image_path, thresholded)
-
-    return processed_image_path
+    # Instead of saving the processed image, you can just return the processed image directly
+    return thresholded  # return the image for further use, instead of saving
