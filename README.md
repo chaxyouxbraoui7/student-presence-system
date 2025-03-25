@@ -74,7 +74,7 @@ source venv/bin/activate
 6. **Upgrade pip (Important) :**
 
 ```bash
-pip install --upgrade pip
+python.exe -m pip install --upgrade pip
 ```
 
 7. **Install the required dependencies :**
