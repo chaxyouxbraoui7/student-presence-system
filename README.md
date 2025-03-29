@@ -9,8 +9,10 @@ The system is intended for educational use only.
 
 This system provides three key functionalities:  
 
-- **Student Data Import:** Upload a CSV file containing student details (ID, First Name, Last Name, Exam Number).  
-- **CIN Card Processing:** Upload images of CIN cards for automatic identification.  
+- **Student Data Import:** Upload a CSV file containing student details (ID, First Name, Last Name, Exam Number).
+
+- **CIN Card Processing:** Upload images of CIN cards for automatic identification.
+ 
 - **Automated Attendance Tracking:** Extract CIN IDs, compare them with the CSV file, and generate an attendance report as a table.  
 
 ## Project Code Installation
