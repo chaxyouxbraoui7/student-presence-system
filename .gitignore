@@ -1,11 +1,14 @@
 # Ignore virtual environments
+
 venv/
 
 # Ignore Python bytecode
+
 *.pyc
 __pycache__/
 
 # Ignore IDE files (We used VS Code)
+
 .vscode/
 
 # Ignore everything inside the data directory

@@ -1,3 +1,5 @@
+# **Student Attendance System**
+
 ## Project Overview
 
 This is a Final Year Project (FYP) for the SMI department at "La Faculté Polydisciplinaire de Ouarzazate" - Ouarzazate - Morocco.
