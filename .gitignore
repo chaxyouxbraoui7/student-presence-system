@@ -11,6 +11,10 @@ __pycache__/
 
 .vscode/
 
+# Ignore tempCodeRunnerFile.py in all directories
+
+**/tempCodeRunnerFile.py
+
 # Ignore everything inside the data directory
 
 data/
