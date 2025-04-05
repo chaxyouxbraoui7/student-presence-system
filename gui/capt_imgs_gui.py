@@ -1,3 +1,7 @@
+""" This file does also provide a the GUI-based interface (2nd one), for uploading images of CIN cards, processing them using OCR, and extracting CIN IDs.
+The extracted CIN IDs are saved into a list as a CSV file in the data folder, and the user can view attendance records or re-upload a different student list. """
+
+
 import os
 import sys
 import logging
