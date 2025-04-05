@@ -4,7 +4,11 @@ Import modification:
 ##from processing.ocr_re_process import ocr_, extracting_cin >>>> ##from processing.ocr_re_process_pytesseract import ocr_pytss, extracting_cin`` """
 
 
-import pytesseract
+# Tesseract-OCR must be installed separately by downloading it from: [Tesseract OCR](https://github.com/tesseract-ocr/tesseract) for pytesseract to work
+# Then add additional languages by download the language files: 'ara.traineddata' & 'fra.traineddata' in the same repository
+# And then place them in the 'tessdata' folder inside the Tesseract installation directory
+
+import pytesseract      
 import re
 import cv2
 

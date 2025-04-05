@@ -48,7 +48,7 @@ def file_validation(): # A function to validate the existence of all the require
 def csv_fl_upload(csv_wndw):   # A function that handls the logic for uploading the CSV file
     logging.debug("Starting csv_fl_upload function.\n")
     
-    from images_gui import images_interface
+    from gui.capt_imgs_gui import images_interface
 
     file_path = filedialog.askopenfilename(title="Select a CSV File", filetypes=[("CSV files", "*.csv"), ("All Files", "*.*")])
     
