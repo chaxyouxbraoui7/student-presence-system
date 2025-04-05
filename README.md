@@ -14,10 +14,11 @@ This system provides three key functionalities:
 
 - **CIN Card Processing:** Upload images of CIN cards, which are processed to extract CIN numbers using Optical Character Recognition (OCR) and regex. The extracted CINs are saved in `extracted_cin.csv`.
 
-> **Note:** For optimal accuracy in extracting CIN numbers, the uploaded images should be at least of mid-quality.  
-> Since this system relies on a pre-trained OCR model rather than a custom-trained one, poor-quality images may lead to incorrect extractions.
+> **Note:** For optimal accuracy in extracting CIN numbers, the uploaded images should be at least of mid-quality. Since this system relies on a pre-trained OCR model rather than a custom-trained one, poor-quality images may lead to incorrect extractions.
 
 - **Automated Attendance Tracking:** The system compares the extracted CINs with the student CSV file, generates an attendance report, and saves it as `attendance.csv`. The attendance is displayed as a table in the GUI.
+
+- **Capture Card Feature (Experimental):** Capture images of CIN cards using your laptop's camera. While this feature is still under development, please note that OCR accuracy may be limited due to the camera quality. Low-quality images can cause difficulties with CIN extraction, but we are actively working on improving this feature, insh'allah.
 
 
 ## Project Code Installation
@@ -104,15 +105,6 @@ pip install --no-cache-dir -r requirements.txt
 python gui/main.py
 ```
 
-**Libraries Version :**
-
-```bash
-easyocr==1.7.2
-opencv-python==4.11.0.86
-pandas==2.2.3
-regex==2024.11.6
-```
-
 ## Troubleshooting
 
 - **Issue :** `pip install` doesn't work.
@@ -129,10 +121,10 @@ regex==2024.11.6
 
   **Solution :** Try installing them one by one, or run `pip install pandas opencv-python easyocr regex` or `pip install pandas opencv-python easyocr regex torch torchvision`.
 
-## License
+## Notes
 
-This project is intended for educational purposes only and cannot be used commercially.
+-  This project relies on Optical Character Recognition (OCR) for CIN card processing. For optimal performance, images should be clear and of a reasonable quality.
 
-Feel free to modify it for personal or academic use.
+- The project is also intended for educational purposes only and cannot be used commercially.
 
-**Contributions are welcome!** Feel free to submit **pull requests** or open an **issue** if you find a bug or have suggestions.
+- **Contributions are welcome!** and we really encourage pull requests or suggestions to help improve the system, especially for the CIN card capture feature or other new ideas!
