@@ -117,7 +117,7 @@ python gui/main.py
 
 - **Issue :** The libraries don't install when running `pip install -r requirements.txt`.
 
-  **Solution :** Try installing them one by one, or run `pip install pandas opencv-python easyocr regex` or `pip install pandas opencv-python easyocr regex torch torchvision`.
+  **Solution :** Try installing them one by one.
 
 ## Notes
 
