@@ -269,43 +269,45 @@ def images_interface():      # A function that opens the image upload interface
         
         logging.debug("Re-opening the CSV window.\n")
         csv_upld_interface()
-        
-    def capture_card():    # A function that captures an image using the laptop camera
+
+    def capture_card():    # A function that captures the card using the laptop camera with thw help of OpenCV
         logging.debug("Starting the capture_card function.\n")
 
         cap_cam = cv2.VideoCapture(0) # Opening & and holding the default camera (0 for built-in camera, 1 for external camera)
-        cv2.namedWindow("Capture CIN Card") # Creating a window to display the camera feed
-        cv2.resizeWindow("Capture CIN Card", 640, 480)
+        cv2.namedWindow("Capture CIN Card", cv2.WINDOW_NORMAL) # Creating a window to display the camera feed
+        cv2.namedWindow("Capture The CIN Card", x=400, y=200) # Creating it
         
-
-        while True:
+        img_counter = 0
+        
+        while True: # Looping the to capture the image
             bool_return_val, frame = cap_cam.read() # Reading the frame from the camera
             if not bool_return_val:
                 logging.error("Failed to capture image from camera.\n")
-                break  # Exiting the loop if the camera is not available or fails to capture
+                break # Exiting the loop if the camera is not available or fails to capture
             
             cv2.imshow("Capture CIN Card", frame) # Displaying the frame in the window
             
             key_capt = cv2.waitKey(1) # Waiting for a key press
-            if key_capt % 256 == 27:  # ESC key
+            if key_capt % 256 == 27:  # ESC key to exit
                 logging.debug("ESC key pressed. Closing camera.\n")
                 break
-            elif key_capt % 256 == 32 or key_capt % 256 == 13:  # SPACE or ENTER key
+            elif key_capt % 256 == 32 or key_capt % 256 == 13:  # SPACE or ENTER key to capture
                 capture_imgs_folder = os.path.join(data_folder, "capture-imgs")
                 os.makedirs(capture_imgs_folder, exist_ok=True)
-                cap_card_tm = datetime.datetime.now().strftime("%Y-%m-%d-%H-%M-%S") # Getting the live time the image was captured in to name it
-                img_nm = f"{cap_card_tm}_cin_card.png"
-                img_nm_path = os.path.join(capture_imgs_folder, img_nm)
-                cv2.imwrite(img_nm_path, frame)
-                logging.debug(f"Captured image saved as {img_nm_path}\n")
+                cap_card_tm =  datetime.datetime.now().strftime("%Y/%m/%d-%H-%M%S") # Getting the live time the image was captured in to name it
+                i_img = next(img_counter)
+                img_nm = f"{cap_card_tm}_cin_card_{i_img}.png"
+                img_nm_path = os.path.join(data_folder, img_nm)
+                cv2.imwrite(img_nm, frame) # Saving the captured image
+                logging.debug(f"Captured image saved as {img_nm} at {img_nm_path}\n")
                 break
 
         cap_cam.release() # Releasing the camera
         cv2.destroyAllWindows() # Closing the camera window
 
-        if os.path.exists(img_nm_path):
-            logging.debug(f"Enhancing the captured image quality: {img_nm_path}\n")
-            captured_img = Image.open(img_nm_path)
+        if os.path.exists(img_nm):
+            logging.debug(f"Enhancing the captured image quality: {img_nm}\n")
+            captured_img = Image.open(img_nm)
 
             # Enhancing the image quality
             enhancer = ImageEnhance.Contrast(captured_img)
@@ -314,11 +316,11 @@ def images_interface():      # A function that opens the image upload interface
             enhancer = ImageEnhance.Sharpness(enhanced_img)
             enhanced_img = enhancer.enhance(2)
 
-            enhanced_img.save(img_nm_path)
-            logging.debug(f"Enhanced image saved as {img_nm_path}\n")
+            enhanced_img.save(img_nm)
+            logging.debug(f"Enhanced image saved as {img_nm}\n")
 
             # Processing the captured and enhanced image
-            success = process_ocr_on_images([img_nm_path], log_widget)
+            success = process_ocr_on_images([img_nm], log_widget)
             logging.debug("Finished processing captured image.\n")
 
             attendance_report_table_gen()
