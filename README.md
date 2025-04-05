@@ -3,17 +3,22 @@
 ## Project Overview
 
 This is a Final Year Project (FYP) for the SMI department at "La Faculté Polydisciplinaire de Ouarzazate" - Ouarzazate - Morocco.
+
 The system is intended for educational use only.
 
 ## Features  
 
 This system provides three key functionalities:  
 
-- **Student Data Import:** Upload a CSV file containing student details (ID, First Name, Last Name, Exam Number).
+- **Student Data Import:** Upload a CSV file containing student details (**CIN, Numero, Nom, Prenom**). This file is stored as `students.csv`.
 
-- **CIN Card Processing:** Upload images of CIN cards for automatic identification.
- 
-- **Automated Attendance Tracking:** Extract CIN IDs, compare them with the CSV file, and generate an attendance report as a table.  
+- **CIN Card Processing:** Upload images of CIN cards, which are processed to extract CIN numbers using Optical Character Recognition (OCR) and regex. The extracted CINs are saved in `extracted_cin.csv`.
+
+> **Note:** For optimal accuracy in extracting CIN numbers, the uploaded images should be at least of mid-quality.  
+> Since this system relies on a pre-trained OCR model rather than a custom-trained one, poor-quality images may lead to incorrect extractions.
+
+- **Automated Attendance Tracking:** The system compares the extracted CINs with the student CSV file, generates an attendance report, and saves it as `attendance.csv`. The attendance is displayed as a table in the GUI.
+
 
 ## Project Code Installation
 
@@ -127,6 +132,7 @@ regex==2024.11.6
 ## License
 
 This project is intended for educational purposes only and cannot be used commercially.
+
 Feel free to modify it for personal or academic use.
 
 **Contributions are welcome!** Feel free to submit **pull requests** or open an **issue** if you find a bug or have suggestions.
