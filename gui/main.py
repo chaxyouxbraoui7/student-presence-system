@@ -1,41 +1,76 @@
-# Importing all the necessary libraries & absolute importing of functions and variables
-
-import tkinter as tk
 import os
 import sys
-
-# Adding the parent directory to the system path for module importing
+import logging
+import tkinter as gui
 
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
 
-# Importing the 'upload_csv' function from the 'upload_csv' file in the 'gui' folder
+from gui.csv_gui import csv_upld_interface
+from utils.utils_defs import window_centering
 
-from gui.upload_csv import upload_csv
+logging.basicConfig(level=logging.DEBUG, format='%(asctime)s - [%(levelname)s] - %(message)s')
 
-# The function that initializes and starts the application
+main_project_directory = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
-def start_program():
-    
-    # Creating the main app window
-    
-    root = tk.Tk()
+imgs_logo_folder = os.path.join(main_project_directory, "gui", "images&logo")
 
-    # Setting the window's title
-    
-    root.title("Student • Presence • System")
-    
-    # Calling the 'upload_csv' function to set up the CSV upload interface
-    
-    upload_csv(root)
+logo_path = os.path.join(imgs_logo_folder, "logo.ico")
 
-    # Starting the tkinter event loop to keep the app interactive
+def wlcm_splash_screen():      # A function used to display the starting splash screen
     
-    root.mainloop()
+    logging.debug("Starting show_splash_screen function.\n")
+    
+    splash = gui.Tk()
+    splash.lift()  
+    splash.attributes("-topmost", True)  
+    
+    splash.title("Student • Presence • System")
+    
+    splash.configure(bg="#2e2e2e")  # Setting the splash's bg color
 
-# Checking if the script is being executed directly
+    logging.debug("Setting the logo.\n")
+    if os.path.exists(logo_path):
+        splash.iconbitmap(logo_path)
+        
+    else:
+        logging.warning("Logo icon not found. Proceeding without it (Default tk logo).\n")
+        
+    
+    welcome_label = gui.Label(splash, text="Welcome to « Student Presence System »", 
+                              font=("Georgia", 25, "bold"), 
+                              fg="white", 
+                              bg="#2e2e2e")
+    welcome_label.pack(expand=True)  # Centering the label in the window
 
-if __name__ == "__main__":
     
-    # If true, the function can be called to launch the application
+    description_label = gui.Label(splash, text="A Moroccan student attendance system.", 
+                                  font=("Merriweather", 11, "bold", "italic"), 
+                                  fg="white", 
+                                  bg="#2e2e2e")
+    description_label.pack(pady=7)
     
-    start_program()
+    window_centering(splash, 0.45, 0.1)  # Set the splash screen size to 45% width and 10% height of the screen
+    
+    splash.update()  # Updating the splash screen to reflect changes
+
+    splash.after(2500, splash.destroy)  # Destroying (closing) the splash screen after 2.5 seconds
+    
+    logging.debug(f"Setting up the main window with title: `{splash.title()}`\n")
+    splash.mainloop()
+
+def main_program():   # The function that starts our program from the start
+    
+    wlcm_splash_screen()
+     
+    csv_upld_interface()
+
+    logging.debug("Main program closed.\n")
+
+
+if __name__ == "__main__":     # The direct execution ...
+    
+    
+    print("\n------------------------- Main Run (main.py) -------------------------\n")
+    
+    
+    main_program()
