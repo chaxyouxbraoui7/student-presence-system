@@ -8,6 +8,11 @@ while logging relevant details for debugging. """
 import easyocr
 import re
 import cv2
+import logging
+import tkinter as tk
+from tkinter import filedialog, messagebox
+
+logging.basicConfig(level=logging.DEBUG, format='%(asctime)s - [ %(levelname)s ] - %(message)s')
 
 ocr_reader = None
 
@@ -47,11 +52,6 @@ def extracting_cin(ocr_result):    # A function that extracts the CIN ID from th
 
 if __name__ == "__main__":   # Testing the functions by direct execution
 
-    import logging
-    import tkinter as tk
-    from tkinter import filedialog, messagebox
-    
-    logging.basicConfig(level=logging.DEBUG, format='%(asctime)s - [ %(levelname)s ] - %(message)s')
     
     print("\n\n------------------------- The OCR Test Starts -------------------------\n")
     

@@ -21,15 +21,18 @@ logging.debug("Starting CSV handling...\n")
 
 print("\n\n------------------------- Our CSV Database :) -------------------------\n")
 
-logging.debug("Creating data folder existence\n")
+logging.debug("Checking data folder existence\n")
 data_folder = os.path.join(project_directory, 'data') # Checking the existence of `data` folder
 students_path = os.path.join(data_folder, "students.csv")  # ... `students.csv` file
 extracted_path = os.path.join(data_folder, "cin_list.csv")  # ... `cin_list.csv` ...
 attendance_path = os.path.join(data_folder, "attendance.csv")  # ... `attendance.csv` ...
 
-logging.debug(f"Creating data folder at: {data_folder}")
 os.makedirs(data_folder, exist_ok=True) # Creating the folder if it does not exist
-
+if not data_folder:
+    logging.debug(f"Creating data folder at: {data_folder}")
+else:
+    logging.debug(f"Data folder already existe at: {data_folder}")
+    
 def file_validation(): # A function to validate the existence of all the required `.csv` files in the `data` folder
         
     # Checking the existence of the required files
@@ -54,15 +57,15 @@ def csv_fl_upload(csv_wndw):   # A function that handls the logic for uploading 
     
     logging.debug("Checking if a file was selected...\n")
     if not file_path:
-        messagebox.showwarning("No File Selected", "Please select a valid CSV file!")
+        messagebox.showwarning("No File Selected", "Please select a file!")
         logging.warning("No file selected!\n")
         return
-    #messagebox.showinfo("CSV File Selected", f"File selected successfully from:\n{file_path}\n You can now proceed.")
+    #messagebox.showinfo("CSV File Selected", f"File selected successfully from:\n{file_path}\nYou can now proceed.")
     logging.debug(f"File selected successfully from: {file_path}\n")
 
     logging.debug("Validating the file's extension...\n")
     if not file_path.lower().endswith(".csv"):
-        messagebox.showwarning("Invalid File Type", "The selected file is not a CSV.\nPlease select a valid CSV file!\n")
+        messagebox.showwarning("Invalid File Type", "The selected file is not a CSV.\nPlease select a valid file!\n")
         logging.error("Invalid file type selected!\n")
         return
     
@@ -197,7 +200,7 @@ def csv_reupload(new_csv_path): # A function that checks if the newly uploaded C
                 
         except Exception as e:
             logging.error(f"Error comparing CSV files: {e}")
-            messagebox.showwarning("Please check the file format or the colums of the file (CIN, Numero, Nom, Prenom).")
+            messagebox.showwarning("Please check the file format or the columns of the file (CIN, Numero, Nom, Prenom).")
             
     else:
         logging.debug("No existing CSV file found. This is the first uploaded one.")

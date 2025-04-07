@@ -4,13 +4,14 @@ Import modification:
 ##from processing.ocr_re_process import ocr_, extracting_cin >>>> ##from processing.ocr_re_process_pytesseract import ocr_pytss, extracting_cin`` """
 
 
-# Tesseract-OCR must be installed separately by downloading it from: [Tesseract OCR](https://github.com/tesseract-ocr/tesseract) for pytesseract to work
-# Then add additional languages by download the language files: 'ara.traineddata' & 'fra.traineddata' in the same repository
-# And then place them in the 'tessdata' folder inside the Tesseract installation directory
-
-import pytesseract      
+import pytesseract
 import re
-import cv2
+import cv2    
+import logging
+import tkinter as tk
+from tkinter import filedialog, messagebox
+
+logging.basicConfig(level=logging.DEBUG, format='%(asctime)s - [ %(levelname)s ] - %(message)s')
 
 ocr_reader = None
 
@@ -101,12 +102,6 @@ def extracting_cin(ocr_result):
 
 if __name__ == "__main__":
     
-    
-    import logging
-    import tkinter as tk
-    from tkinter import filedialog, messagebox
-    
-    logging.basicConfig(level=logging.DEBUG, format='%(asctime)s - [ %(levelname)s ] - %(message)s')
     
     print("\n\n------------------------- The OCR Test Starts -------------------------\n")
     

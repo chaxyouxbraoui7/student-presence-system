@@ -7,6 +7,11 @@ line in each file that used in to: ##from processing.ocr_re_process_pytesseract 
 from paddleocr import PaddleOCR
 import re
 import cv2
+import logging
+import tkinter as tk
+from tkinter import filedialog, messagebox
+
+logging.basicConfig(level=logging.DEBUG, format='%(asctime)s - [ %(levelname)s ] - %(message)s')
 
 ocr_reader = None
 
@@ -42,11 +47,6 @@ def extracting_cin(ocr_result):
 
 if __name__ == "__main__":   # Testing the functions by direct execution
 
-    import logging
-    import tkinter as tk
-    from tkinter import filedialog, messagebox
-    
-    logging.basicConfig(level=logging.DEBUG, format='%(asctime)s - [ %(levelname)s ] - %(message)s')
     
     print("\n\n------------------------- The OCR Test Starts -------------------------\n")
     
