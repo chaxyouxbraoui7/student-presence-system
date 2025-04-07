@@ -26,7 +26,7 @@ def wlcm_splash_screen():      # A function used to display the starting splash 
     
     splash.title("Student • Presence • System")
     
-    splash.configure(bg="#2e2e2e")  # Setting the splash's bg color
+    splash.configure(bg="black")  # Setting the splash's bg color
 
     logging.debug("Setting the logo.\n")
     if os.path.exists(logo_path):
@@ -39,17 +39,17 @@ def wlcm_splash_screen():      # A function used to display the starting splash 
     welcome_label = gui.Label(splash, text="Welcome to « Student Presence System »", 
                               font=("Georgia", 25, "bold"), 
                               fg="white", 
-                              bg="#2e2e2e")
+                              bg="black")
     welcome_label.pack(expand=True)  # Centering the label in the window
 
     
     description_label = gui.Label(splash, text="A Moroccan student attendance system.", 
                                   font=("Merriweather", 11, "bold", "italic"), 
                                   fg="white", 
-                                  bg="#2e2e2e")
+                                  bg="black")
     description_label.pack(pady=7)
     
-    window_centering(splash, 0.45, 0.1)  # Set the splash screen size to 45% width and 10% height of the screen
+    window_centering(splash, 0.7, 0.1)  # Set the splash screen size to 45% width and 10% height of the screen
     
     splash.update()  # Updating the splash screen to reflect changes
 

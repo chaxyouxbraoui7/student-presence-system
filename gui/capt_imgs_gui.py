@@ -39,7 +39,7 @@ def images_interface():      # A function that opens the image upload interface
 
     images_wndw.title("Student • Presence • System")
     
-    window_centering(images_wndw, width_ratio=0.85, height_ratio=0.85)
+    window_centering(images_wndw, width_ratio=1, height_ratio=1)
 
     logging.debug("Setting the images window's background image.\n")
     
@@ -58,14 +58,14 @@ def images_interface():      # A function that opens the image upload interface
         bg_label.image = bg_img
         bg_label.place(x=0, y=0, relwidth=1, relheight=1)
 
-    title_label = gui.Label(images_wndw, text="Upload or capture some CIN cards images to extract IDs via OCR", font=("Georgia", 33, "bold", "italic"), padx=7, pady=7, fg="white", bg="black")
+    title_label = gui.Label(images_wndw, text="Upload or capture some CIN cards images to extract IDs via OCR", font=("Georgia", 25, "bold", "italic"), padx=7, pady=7, fg="white", bg="black")
     title_label.pack(pady=10)
 
     log_title = gui.Label(images_wndw, text="Processing log", font=("Merriweather", 11, "bold"), fg="cyan", bg="black")
     log_title.pack(pady=(7))
 
     # Configuring the log widget to display processing messages
-    log_widget = scrolledtext.ScrolledText(images_wndw, height=33, width=150, wrap=gui.WORD, bg="#3a3a3a", fg="white", font=("Merriweather", 11, "bold"))
+    log_widget = scrolledtext.ScrolledText(images_wndw, height=15, width=150, wrap=gui.WORD, bg="#3a3a3a", fg="white", font=("Merriweather", 11, "bold"))
     log_widget.tag_config("header", foreground="blue", font=("Georgia", 15, "bold"))
     log_widget.tag_config("info", foreground="white", font=("Merriweather", 11, "bold"))
     log_widget.tag_config("info_msg", foreground="white", font=("Merriweather", 11, "bold"))
@@ -340,8 +340,11 @@ def images_interface():      # A function that opens the image upload interface
                 log_widget.config(state="disabled")
                 log_widget.see(gui.END)
 
-    btn_frame = gui.Frame(images_wndw, bg="#3a3a3a")
+    btn_frame = gui.Frame(images_wndw, bg="black")
     btn_frame.pack(pady=10)
+
+    btn_frame2 = gui.Frame(images_wndw, bg="black")
+    btn_frame2.pack(pady=10)
     
     import_imgs = gui.Button(btn_frame, text="Import Images For Attendance", 
                             command=upload_images,
@@ -365,7 +368,7 @@ def images_interface():      # A function that opens the image upload interface
                             relief="raised")
     capture_img.pack(side="left", padx=1)
     
-    show_table = gui.Button(btn_frame, text="View Attendance Records (Table)",
+    show_table = gui.Button(btn_frame2, text="View Attendance Records (Table)",
                             command=lambda: attendance_table_display(images_wndw),
                             width=30,
                             height=1, 
@@ -376,7 +379,7 @@ def images_interface():      # A function that opens the image upload interface
                             relief="raised")
     show_table.pack(side="left", padx=1)
     
-    reupload = gui.Button(btn_frame, text="Upload Different Student List (CSV)",
+    reupload = gui.Button(btn_frame2, text="Upload Different Student List (CSV)",
                           command=reupload_csv,
                           width=30,
                           height=1,
@@ -387,10 +390,10 @@ def images_interface():      # A function that opens the image upload interface
                           relief="raised")  
     reupload.pack(side="left", padx=1)
     
-    note_label = gui.Label(images_wndw, text="> Note: Since this system relies on a pre-trained OCR model rather than a custom-trained one, for optimal accuracy in extracting CIN IDs, the uploaded images should be of at least medium quality. Poor-quality images may lead to incorrect extractions.\n>> Recommendation: If you're using a CPU (no GPU) with this machine, we recommend importing 1 to 3 images at a time (at most) to ensure the service runs efficiently (this is optional). Since this model is slower on a CPU, switching to a GPU, if available, is highly recommended.",
+    note_label = gui.Label(images_wndw, text="> Note: Since this system relies on a pre-trained OCR model rather than a custom-trained one, for optimal accuracy in extracting CIN IDs, the uploaded images should be of at least medium quality.\nPoor-quality images may lead to incorrect extractions.\n\n>> Recommendation: If you're using a CPU (no GPU) with this machine, we recommend importing 1 to 3 images at a time (at most) to ensure the service runs efficiently (this is optional).\nSince this model is slower on a CPU, switching to a GPU, if available, is highly recommended.",
                             font=("Merriweather", 9), 
                             fg="white", 
-                            bg="#3a3a3a", 
+                            bg="black", 
                             justify="center",
                             borderwidth=1,
                             relief="solid")
