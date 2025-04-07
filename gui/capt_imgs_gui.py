@@ -33,7 +33,6 @@ def images_interface():      # A function that opens the image upload interface
     images_wndw = gui.Tk()
     images_wndw.withdraw()
     images_wndw.lift()
-    images_wndw.attributes("-tompost", True)
         
     logo_path = os.path.abspath(os.path.join(os.path.dirname(__file__), "images&logo", "logo.ico"))
     images_wndw.iconbitmap(logo_path)
@@ -79,6 +78,7 @@ def images_interface():      # A function that opens the image upload interface
     def processing_splash(): # A function that creates a splash screen for processing images
         process_splash = gui.Toplevel()
         process_splash.lift()
+        process_splash.attributes("-topmost", True)
         process_splash.title("Processing Images")
         process_splash.configure(bg="#2e2e2e")
         
