@@ -4,11 +4,9 @@
 
 This is a Final Year Project (FYP) for the SMI department at "La Faculté Polydisciplinaire de Ouarzazate" - Ouarzazate - Morocco.
 
-The system is intended for educational use only.
+# It Features  
 
-## Features  
-
-This system provides three key functionalities:  
+four key functionalities:  
 
 - **Student Data Import:** Upload a CSV file containing student details (**CIN, Numero, Nom, Prenom**). This file is stored as `students.csv`.
 
