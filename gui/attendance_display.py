@@ -1,3 +1,9 @@
+""" This file provides the last (3rd) GUI-based interface, for displaying the attendance table. 
+It loads the attendance data, displays it in a table format using Tkinter's Treeview widget, 
+and provides counters for students marked as "Present" or "Absent".
+It also includes error handling and window management features to ensure smooth interaction with the user. """
+
+
 import os
 import sys
 import logging

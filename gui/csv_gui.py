@@ -1,3 +1,7 @@
+""" This file provides the GUI-based interface for uploading the CSV file. The uploaded CSV file is validated and saved.
+If the user skips the upload, it checks for the existence of the first provided CSV file and proceeds to the next interface for image uploads (if it truly exist). """
+
+
 import os
 import sys
 import logging
