@@ -39,7 +39,7 @@ def images_interface():      # A function that opens the image upload interface
 
     images_wndw.title("Student • Presence • System")
     
-    window_centering(images_wndw, width_ratio=0.85, height_ratio=0.85)
+    window_centering(images_wndw, width_ratio=1, height_ratio=1)
 
     logging.debug("Setting the images window's background image.\n")
     
@@ -65,7 +65,7 @@ def images_interface():      # A function that opens the image upload interface
     log_title.pack(pady=(7))
 
     # Configuring the log widget to display processing messages
-    log_widget = scrolledtext.ScrolledText(images_wndw, height=35, width=150, wrap=gui.WORD, bg="#3a3a3a", fg="white", font=("Times New Roman", 11, "bold"))
+    log_widget = scrolledtext.ScrolledText(images_wndw, height=25, width=150, wrap=gui.WORD, bg="#3a3a3a", fg="white", font=("Times New Roman", 11, "bold"))
     log_widget.tag_config("header", foreground="blue", font=("Times New Roman", 15, "bold"))
     log_widget.tag_config("info", foreground="white", font=("Times New Roman", 11, "bold"))
     log_widget.tag_config("success", foreground="green", font=("Times New Roman", 11, "bold"))
@@ -383,14 +383,14 @@ def images_interface():      # A function that opens the image upload interface
     note_label = gui.Label(images_wndw, text="> Note: Since this system relies on a pre-trained OCR model rather than a custom-trained one, for optimal accuracy in extracting CIN IDs, the uploaded images should be of at least medium quality. Poor-quality images may lead to incorrect extractions.",
                            font=("Times New Roman", 11), 
                            fg="white", 
-                           bg="#3a3a3a", 
+                           bg="blackg", 
                            justify="center")
     note_label.pack(pady=15, padx=1)
     
     note2_label = gui.Label(images_wndw, text=">> Recommendation: If you're using a CPU (no GPU) with this machine, we recommend importing 1 to 3 images at a time (at most) to ensure the service runs efficiently (this is optional). Since this model is slower on a CPU, switching to a GPU, if available, is highly recommended.",
                             font=("Times New Roman", 10), 
                             fg="white", 
-                            bg="#3a3a3a", 
+                            bg="blackg", 
                             justify="center")
     note2_label.pack(pady=15, padx=1)
     
