@@ -1,4 +1,4 @@
-# <img src="gui/images&logo/logo.png" alt="icon" height="25" style="vertical-align: middle;"/> **Student Attendance System**
+# <img src="gui/images&logo/logo.png" alt="icon" height="45" style="vertical-align: middle;"/> **Student Attendance System**
 
 ## Project Overview
 
