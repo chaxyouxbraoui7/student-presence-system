@@ -19,6 +19,8 @@ four key functionalities:
 
 ## Project Code Installation
 
+> **You can skip this if you already know how**
+
 To set up the project on a local machine, follow the steps below :
 
 **Python Version :**
@@ -103,19 +105,19 @@ python gui/main.py
 
 ## Troubleshooting
 
-- **Issue :** `pip install` doesn't work.
+- **Issue:** `pip install` doesn't work.
 
-  **Solution :** Ensure you have activated the virtual environment before running `pip install`.
+  **Solution:** Ensure you have activated the virtual environment before running `pip install`.
 
-- **Issue :** The program doesn't run or shows an error when starting.
+- **Issue:** The program doesn't run or shows an error when starting.
 
-  **Solution 1 :** Ensure you have the correct Python version installed (3.12.9).
+  **Solution 1:** Ensure you have the correct Python version installed (3.12.9).
 
-  **Solution 2 :** Ensure you have navigated to the project directory by running `cd .\student-presence-system\`
+  **Solution 2:** Ensure you have navigated to the project directory by running `cd .\student-presence-system\`
 
-- **Issue :** The libraries don't install when running `pip install -r requirements.txt`.
+- **Issue:** The libraries don't install when running `pip install -r requirements.txt`.
 
-  **Solution :** Try installing them one by one.
+  **Solution:** Try installing them one by one.
 
 ## Notes
 
