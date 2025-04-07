@@ -26,7 +26,7 @@ def ppocr_(image_path):    # A function that performs OCR using PaddleOCR
     
     ocr_results = ocr_reader.ocr(graysc_image, cls=True)  # Performing the OCR on the grayscale image and returning detailed results (text, confidence, box) using cls
     
-    ocr_results = [line[1][0] for line in ocr_results[0]]  # Extracting only the recognized text from each detected line in the first result
+    ocr_results = [line[1][0] for line in ocr_results[0]]  # Extracting only the recognized text from each detected line in the first results
     return ocr_results
 
 def extracting_cin(ocr_result):
