@@ -33,6 +33,7 @@ def images_interface():      # A function that opens the image upload interface
     images_wndw = gui.Tk()
     images_wndw.withdraw()
     images_wndw.lift()
+    images_wndw.attributes("-tompost", True)
         
     logo_path = os.path.abspath(os.path.join(os.path.dirname(__file__), "images&logo", "logo.ico"))
     images_wndw.iconbitmap(logo_path)
@@ -140,12 +141,8 @@ def images_interface():      # A function that opens the image upload interface
             log_widget.config(state="disabled")
             log_widget.see(gui.END)
         
-    def safe_call_def_schedl(window, delay_ms, func, *args): # A function that schedules a function to be called after a delay safely to avoid crashes
-        if window.winfo_exists():  # Checking if the window does exists (or open)
-            window.after(delay_ms, func, *args) # Scheduling the function to be called after delay_ms, if the window is still open
-
+        logging.debug("Processing images for OCR and CIN ID extraction.\n")
     def process_ocr_on_images(image_paths, log_widget):    # A function that processes the images and extracts CIN IDs
-        
         logging.debug("Starting the process_ocr_on_images function.\n")
         
         logging.debug("Creating processing splash screen.\n")
@@ -158,115 +155,89 @@ def images_interface():      # A function that opens the image upload interface
         end_msg = "==================== Processing Completed ==================\n\n"
         info_msg = "You can now:\n\n• Import more images\n• Capture CIN cards\n• View the attendance table\n• Re-upload new lists\n\n"
         
-        
         log_widget.config(state="normal")
         log_widget.insert(gui.END, f"\n{start_msg}\n", "header")
         log_widget.insert(gui.END, "The system is now processing the uploaded images to extract CIN IDs.\n\n", "info")
         log_widget.config(state="disabled")
         log_widget.see(gui.END)
         
-        current_image = [0]
         success = True  # Tracking overall success
         
         logging.debug("Processing each image for OCR and CIN ID extraction.\n")
-        def process_one_image(i_img):   # A function that processes one image at a time
+        def process_images():   # A function that processes all images at once
             nonlocal success
-            i_img = current_image[0]
-            if i_img >= len(image_paths): # If all images have been processed
-                progress_label.config(text="Complete! Closing...") # Update the label to indicate completion
-                
-                processing_wndw.update() # Update the window to show the message
-                
-                time.sleep(0.75) # Wait for a moment before closing
-                
-                processing_wndw.destroy() # And then close the process splash screen
+            
+            for i, image_path in enumerate(image_paths):
+                image_file = os.path.basename(image_path)
+                message_count = next(msg_count)
                 
                 log_widget.config(state="normal")
-                log_widget.insert(gui.END, f"\n{end_msg}\n", "header")
-                log_widget.config(state="disabled")
-                log_widget.see(gui.END)
+                   
+                if not os.path.exists(image_path): # Checking if the image file exists
+                    log_widget.insert(gui.END, f"\n{message_count} - Error: The file {image_path} does not exist.\n\n\n", "error")
+                    logging.error(f"Error: The file {image_path} does not exist.\n")
+                    log_widget.config(state="disabled")
+                    log_widget.see(gui.END)
+                    success = False
+                    continue # Skipping to the next image if the file does not exist
                 
-                log_widget.config(state="normal")
-                log_widget.insert(gui.END, f"\n{info_msg}\n", "info_msg")
-                log_widget.config(state="disabled")
-                log_widget.see(gui.END)
+                # Performing the extraction
+                logging.debug(f"Starting the OCR processing for image: {image_path}\n")
                 
-                return # Ending the function if all images are processed
+                ocr_start_time = time.time()
+                ocr_result = ocr_(image_path)
+                ocr_end_time = time.time()
+                
+                print("\n")
+                
+                logging.debug(f"OCR processing for {image_path} took {ocr_end_time - ocr_start_time:.2f} seconds.\n")
+                
+                logging.info(f"OCR result for {image_path}: \n\n{ocr_result}\n\n")
+                
+                logging.debug(f"Starting the regex (re) CIN ID search for image: {image_path}\n")
+                
+                cin_id_start_time = time.time()
+                cin_id = extracting_cin(ocr_result)
+                cin_id_end_time = time.time()
+                
+                logging.debug(f"regex took {cin_id_end_time - cin_id_start_time:.2f} seconds to find {cin_id} in {image_path}.")
+                
+                print("\n")
+                
+                logging.info(f"The CIN ID in {image_path}: {cin_id}\n\n")
+                
+                if cin_id:
+                    log_widget.insert(gui.END, f"\n✓ {message_count} - Successfully extracted CIN ID from '{image_file}' ▶ | {cin_id} |\n\n\n", "success")
+                    logging.debug(f"Successfully extracted CIN ID: {cin_id} from {image_file}\n")
+                    
+                    cin_list_save(cin_id)
+                    
+                else:
+                    log_widget.insert(gui.END, f"\n⨻ {message_count} - No CIN ID found in {image_file} (Check your actual list since the model might struggle!!!)\n\n\n", "warning")
+                    logging.warning(f"No CIN ID found in {image_file}\n")
+                    success = False
+                
+                # Update progress
+                progress = int((i + 1) / len(image_paths) * 100) # Calculating the progress percentage
+                progress_label.config(text=f"Processing... {progress}%") # Updating the label
+                processing_wndw.update_idletasks() # Updating the window
             
-            # Process up to 3 images starting from index i
-            images_to_process = image_paths[i_img:i_img+3]
-                        
-            progress = int(min(i_img + 3, len(image_paths)) / len(image_paths) * 100) # Calculating the progress percentage
-            progress_label.config(text=f"Processing... {progress}%") # Updating the label
-            processing_wndw.update_idletasks() # Updating the window
-    
+            log_widget.config(state="normal")
+            log_widget.insert(gui.END, f"\n{end_msg}\n", "header")
+            log_widget.config(state="disabled")
+            log_widget.see(gui.END)
             
-            try: # Processing 3 images at a time
-                
-                for image_path in images_to_process:
-                    image_file = os.path.basename(image_path)
-                    message_count = next(msg_count)
-                    
-                    log_widget.config(state="normal")
-                       
-                    if not os.path.exists(image_path): # Checking if the image file exists
-                        log_widget.insert(gui.END, f"\n{message_count} - Error: The file {image_path} does not exist.\n\n\n", "error")
-                        logging.error(f"Error: The file {image_path} does not exist.\n")
-                        log_widget.config(state="disabled")
-                        log_widget.see(gui.END)
-                        success = False
-                        continue # Skipping to the next image if the file does not exist
-                    
-                    # Performing the extraction
-                    logging.debug(f"Starting the OCR processing for image: {image_path}\n")
-                    
-                    ocr_start_time = time.time()
-                    ocr_result = ocr_(image_path)
-                    ocr_end_time = time.time()
-                    
-                    print("\n")
-                    
-                    logging.debug(f"OCR processing for {image_path} took {ocr_end_time - ocr_start_time:.2f} seconds.\n")
-                    
-                    logging.info(f"OCR result for {image_path}: \n\n{ocr_result}\n\n")
-                    
-                    logging.debug(f"Starting the regex (re) CIN ID search for image: {image_path}\n")
-                    
-                    cin_id_start_time = time.time()
-                    cin_id = extracting_cin(ocr_result)
-                    cin_id_end_time = time.time()
-                    
-                    logging.debug(f"regex took {cin_id_end_time - cin_id_start_time:.2f} seconds to find {cin_id} in {image_path}.")
-                    
-                    print("\n")
-                    
-                    logging.info(f"The CIN ID in {image_path}: {cin_id}\n\n")
-                    
-                    if cin_id:
-                        log_widget.insert(gui.END, f"\n✓ {message_count} - Successfully extracted CIN ID from '{image_file}' ▶ | {cin_id} |\n\n\n", "success")
-                        logging.debug(f"Successfully extracted CIN ID: {cin_id} from {image_file}\n")
-                        
-                        cin_list_save(cin_id)
-                        
-                    else:
-                        log_widget.insert(gui.END, f"\n⨻ {message_count} - No CIN ID found in {image_file} (Check your actual list since the model might struggle!!!)\n\n\n", "warning")
-                        logging.warning(f"No CIN ID found in {image_file}\n")
-                        success = False
-            except Exception as e:
-                success = False
-                error_msg = f"\n⚠ {message_count} - Failed to process {image_file}\n\n"
-                log_widget.insert(gui.END, error_msg, "error")
-                logging.error(f"CRASH in {image_path}", exc_info=True)
-                logging.error(f"Error processing {image_path}: {str(e)}")
-                
+            log_widget.config(state="normal")
+            log_widget.insert(gui.END, f"\n{info_msg}\n", "info_msg")
+            log_widget.config(state="disabled")
+            log_widget.see(gui.END)
             
-            finally:
-                log_widget.config(state="disabled")
-                log_widget.see(gui.END)
-                current_image[0] += 3 # Incrementing the image index
-                safe_call_def_schedl(processing_wndw, 1, process_one_image, current_image[0]) # Scheduling the next image processing after 1 ms delay
-                
-        process_one_image(current_image[0]) # Starting the processing the first image
+            progress_label.config(text="Complete! Closing...") # Update the label to indicate completion
+            processing_wndw.update() # Update the window to show the message
+            time.sleep(0.75) # Wait for a moment before closing
+            processing_wndw.destroy() # And then close the process splash screen
+
+        process_images() # Start processing all images
         return success  # Return overall success
         
     def reupload_csv():    # A function that handls the re-upload of a new CSV file
