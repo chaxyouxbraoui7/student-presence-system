@@ -43,7 +43,7 @@ def attendance_table_display(previous_window=None, direct_run=False): # A functi
 
     table_window.title("Student • Presence • System | Attendance Table")
 
-    window_centering(table_window, width_ratio=0.75, height_ratio=0.75)
+    window_centering(table_window, width_ratio=0.9, height_ratio=0.75)
 
     try:
         attendance_df = pnds.read_csv(attendance_path)
