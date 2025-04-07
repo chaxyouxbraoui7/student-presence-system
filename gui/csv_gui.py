@@ -55,7 +55,7 @@ def csv_upld_interface(csv_wndw=None):  # A function for uploading the CSV file 
     
     
     wndw_title = gui.Label(csv_wndw, text="Upload your CSV file for attendance tracking", 
-                           font=("Georgia", 33, "bold", "italic"), 
+                           font=("Georgia", 22, "bold", "italic"), 
                            bg="black", 
                            fg="white", 
                            padx=10, 
@@ -84,7 +84,7 @@ def csv_upld_interface(csv_wndw=None):  # A function for uploading the CSV file 
                            fg="black",
                            borderwidth=3,
                            relief="raised")
-    skip_list.place(relx=0.5, rely=0.55, anchor="center")
+    skip_list.place(relx=0.5, rely=0.58, anchor="center")
 
     
     csv_note = gui.Label(csv_wndw, text="Please upload a CSV file containing the following columns: CIN, Numero, Nom, Prenom.", 
