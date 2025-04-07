@@ -32,6 +32,7 @@ def images_interface():      # A function that opens the image upload interface
     
     images_wndw = gui.Tk()
     images_wndw.withdraw()
+    images_wndw.lift()
         
     logo_path = os.path.abspath(os.path.join(os.path.dirname(__file__), "images&logo", "logo.ico"))
     images_wndw.iconbitmap(logo_path)
@@ -57,26 +58,26 @@ def images_interface():      # A function that opens the image upload interface
         bg_label.image = bg_img
         bg_label.place(x=0, y=0, relwidth=1, relheight=1)
 
-    title_label = gui.Label(images_wndw, text="Upload CIN Cards Images To Extract IDs Via OCR", font=("Times New Roman", 25, "bold"), padx=7, pady=7, fg="white", bg="black")
+    title_label = gui.Label(images_wndw, text="Upload or capture some CIN cards images to extract IDs via OCR", font=("Georgia", 33, "bold", "italic"), padx=7, pady=7, fg="white", bg="black")
     title_label.pack(pady=10)
 
-    log_title = gui.Label(images_wndw, text="Processing Log", font=("Times New Roman", 11, "bold"), fg="cyan", bg="black")
+    log_title = gui.Label(images_wndw, text="Processing log", font=("Merriweather", 11, "bold"), fg="cyan", bg="black")
     log_title.pack(pady=(7))
 
     # Configuring the log widget to display processing messages
-    log_widget = scrolledtext.ScrolledText(images_wndw, height=35, width=150, wrap=gui.WORD, bg="#3a3a3a", fg="white", font=("Times New Roman", 11, "bold"))
-    log_widget.tag_config("header", foreground="blue", font=("Times New Roman", 15, "bold"))
-    log_widget.tag_config("info", foreground="white", font=("Times New Roman", 11, "bold"))
-    log_widget.tag_config("success", foreground="green", font=("Times New Roman", 11, "bold"))
-    log_widget.tag_config("warning", foreground="yellow", font=("Times New Roman", 11, "bold"))
-    log_widget.tag_config("error", foreground="red", font=("Times New Roman", 11, "bold"))
+    log_widget = scrolledtext.ScrolledText(images_wndw, height=33, width=150, wrap=gui.WORD, bg="#3a3a3a", fg="white", font=("Merriweather", 11, "bold"))
+    log_widget.tag_config("header", foreground="blue", font=("Georgia", 15, "bold"))
+    log_widget.tag_config("info", foreground="white", font=("Merriweather", 11, "bold"))
+    log_widget.tag_config("info_msg", foreground="white", font=("Merriweather", 11, "bold"))
+    log_widget.tag_config("success", foreground="lightgreen", font=("Merriweather", 11, "bold"))
+    log_widget.tag_config("warning", foreground="yellow", font=("Merriweather", 11, "bold"))
+    log_widget.tag_config("error", foreground="red", font=("Merriweather", 11, "bold"))
     log_widget.pack(pady=15)
     log_widget.config(state="disabled")
     
     def processing_splash(): # A function that creates a splash screen for processing images
         process_splash = gui.Toplevel()
         process_splash.lift()
-        process_splash.attributes("-topmost", True)
         process_splash.title("Processing Images")
         process_splash.configure(bg="#2e2e2e")
         
@@ -87,7 +88,7 @@ def images_interface():      # A function that opens the image upload interface
         
         progress_label = gui.Label(process_splash, 
                                  text="Processing images...\n\nProgress: 0%", 
-                                 font=("Times New Roman", 14, "bold"), 
+                                 font=("Georgia", 14, "bold"), 
                                  fg="white", bg="#2e2e2e")
         progress_label.pack(expand=True)
         
@@ -132,14 +133,10 @@ def images_interface():      # A function that opens the image upload interface
         attendance_report_table_gen()
         logging.debug("Attendance report table generated.\n")
         
-        if success:
+        if not success:
+            
             log_widget.config(state="normal")
-            log_widget.insert(gui.END, "You can now:\n\n• Import more images\n• Capture CIN cards\n• View the attendance table\n• Re-upload new lists\n\n", "info")
-            log_widget.config(state="disabled")
-            log_widget.see(gui.END)
-        else:
-            log_widget.config(state="normal")
-            log_widget.insert(gui.END, "Please check the quality of those imported images and try again!\n", "warning")
+            log_widget.insert(gui.END, "Please check the quality of the imported images and try again!\n", "warning")
             log_widget.config(state="disabled")
             log_widget.see(gui.END)
         
@@ -152,13 +149,15 @@ def images_interface():      # A function that opens the image upload interface
         logging.debug("Starting the process_ocr_on_images function.\n")
         
         logging.debug("Creating processing splash screen.\n")
-         # Create splash screen
+        
         processing_wndw, progress_label = processing_splash()
         
         msg_count = counter()
         
         start_msg = "==================== Processing Started ====================\n\n"
         end_msg = "==================== Processing Completed ==================\n\n"
+        info_msg = "You can now:\n\n• Import more images\n• Capture CIN cards\n• View the attendance table\n• Re-upload new lists\n\n"
+        
         
         log_widget.config(state="normal")
         log_widget.insert(gui.END, f"\n{start_msg}\n", "header")
@@ -184,6 +183,11 @@ def images_interface():      # A function that opens the image upload interface
                 
                 log_widget.config(state="normal")
                 log_widget.insert(gui.END, f"\n{end_msg}\n", "header")
+                log_widget.config(state="disabled")
+                log_widget.see(gui.END)
+                
+                log_widget.config(state="normal")
+                log_widget.insert(gui.END, f"\n{info_msg}\n", "info_msg")
                 log_widget.config(state="disabled")
                 log_widget.see(gui.END)
                 
@@ -245,12 +249,12 @@ def images_interface():      # A function that opens the image upload interface
                         cin_list_save(cin_id)
                         
                     else:
-                        log_widget.insert(gui.END, f"\n⨻ {message_count} - No CIN ID found in {image_file} (Check Your Actual List Since The Model Might Struggle!!!)\n\n\n", "warning")
+                        log_widget.insert(gui.END, f"\n⨻ {message_count} - No CIN ID found in {image_file} (Check your actual list since the model might struggle!!!)\n\n\n", "warning")
                         logging.warning(f"No CIN ID found in {image_file}\n")
                         success = False
             except Exception as e:
                 success = False
-                error_msg = f"\n⚠ {message_count} - Failed to process {image_file}: {str(e)}\n\n"
+                error_msg = f"\n⚠ {message_count} - Failed to process {image_file}\n\n"
                 log_widget.insert(gui.END, error_msg, "error")
                 logging.error(f"CRASH in {image_path}", exc_info=True)
                 logging.error(f"Error processing {image_path}: {str(e)}")
@@ -273,45 +277,41 @@ def images_interface():      # A function that opens the image upload interface
         
         logging.debug("Re-opening the CSV window.\n")
         csv_upld_interface()
-
+        
     def capture_card():    # A function that captures the card using the laptop camera with thw help of OpenCV
         logging.debug("Starting the capture_card function.\n")
 
-        cap_cam = cv2.VideoCapture(0) # Opening & and holding the default camera (0 for built-in camera, 1 for external camera)
-        cv2.namedWindow("Capture CIN Card", cv2.WINDOW_NORMAL) # Creating a window to display the camera feed
-        cv2.namedWindow("Capture The CIN Card", x=400, y=200) # Creating it
-        
-        img_counter = 0
-        
+        cap = cv2.VideoCapture(0)  # Opening & and holding the default camera (0 for built-in camera, 1 for external camera)
+        cv2.namedWindow("Capture CIN Card") # Creating a window to display the camera feed
+
         while True: # Looping the to capture the image
-            bool_return_val, frame = cap_cam.read() # Reading the frame from the camera
-            if not bool_return_val:
+            ret, frame = cap.read() # Reading the frame from the camera
+            if not ret:
                 logging.error("Failed to capture image from camera.\n")
                 break # Exiting the loop if the camera is not available or fails to capture
             
             cv2.imshow("Capture CIN Card", frame) # Displaying the frame in the window
             
-            key_capt = cv2.waitKey(1) # Waiting for a key press
-            if key_capt % 256 == 27:  # ESC key to exit
+            key = cv2.waitKey(1) # Waiting for a key press
+            if key % 256 == 27:  # ESC key to exit
                 logging.debug("ESC key pressed. Closing camera.\n")
                 break
-            elif key_capt % 256 == 32 or key_capt % 256 == 13:  # SPACE or ENTER key to capture
+            elif key % 256 == 32 or key % 256 == 13:  # SPACE or ENTER key to capture
                 capture_imgs_folder = os.path.join(data_folder, "capture-imgs")
                 os.makedirs(capture_imgs_folder, exist_ok=True)
-                cap_card_tm =  datetime.datetime.now().strftime("%Y/%m/%d-%H-%M%S") # Getting the live time the image was captured in to name it
-                i_img = next(img_counter)
-                img_nm = f"{cap_card_tm}_cin_card_{i_img}.png"
-                img_nm_path = os.path.join(data_folder, img_nm)
-                cv2.imwrite(img_nm, frame) # Saving the captured image
-                logging.debug(f"Captured image saved as {img_nm} at {img_nm_path}\n")
+                cap_card_tm = datetime.datetime.now().strftime("%Y-%m-%d-%H-%M-%S") # Getting the live time the image was captured in to name it
+                img_nm = f"{cap_card_tm}_cin_card.png"
+                img_nm_path = os.path.join(capture_imgs_folder, img_nm)
+                cv2.imwrite(img_nm_path, frame) # Saving the captured image
+                logging.debug(f"Captured image saved as {img_nm_path}\n")
                 break
 
-        cap_cam.release() # Releasing the camera
+        cap.release() # Releasing the camera
         cv2.destroyAllWindows() # Closing the camera window
 
-        if os.path.exists(img_nm):
-            logging.debug(f"Enhancing the captured image quality: {img_nm}\n")
-            captured_img = Image.open(img_nm)
+        if os.path.exists(img_nm_path):
+            logging.debug(f"Enhancing the captured image quality: {img_nm_path}\n")
+            captured_img = Image.open(img_nm_path)
 
             # Enhancing the image quality
             enhancer = ImageEnhance.Contrast(captured_img)
@@ -320,11 +320,11 @@ def images_interface():      # A function that opens the image upload interface
             enhancer = ImageEnhance.Sharpness(enhanced_img)
             enhanced_img = enhancer.enhance(2)
 
-            enhanced_img.save(img_nm)
-            logging.debug(f"Enhanced image saved as {img_nm}\n")
+            enhanced_img.save(img_nm_path)
+            logging.debug(f"Enhanced image saved as {img_nm_path}\n")
 
             # Processing the captured and enhanced image
-            success = process_ocr_on_images([img_nm], log_widget)
+            success = process_ocr_on_images([img_nm_path], log_widget)
             logging.debug("Finished processing captured image.\n")
 
             attendance_report_table_gen()
@@ -347,46 +347,57 @@ def images_interface():      # A function that opens the image upload interface
                             command=upload_images,
                             width=30, 
                             height=1, 
-                            font=("Times New Roman", 15, "bold"), bg="#4CAF50", fg="black")
+                            font=("Inter", 15, "bold"), 
+                            bg="#4CAF50", 
+                            fg="black",
+                            borderwidth=3,
+                            relief="raised")
     import_imgs.pack(side="left", padx=1)
     
     capture_img = gui.Button(btn_frame, text="Capture CIN Card",
                             command=capture_card,
                             width=30,
                             height=1, 
-                            font=("Times New Roman", 15, "bold"), bg="#FF0000", fg="black")
+                            font=("Inter", 15, "bold"), 
+                            bg="#FF0000", 
+                            fg="black",
+                            borderwidth=3,
+                            relief="raised")
     capture_img.pack(side="left", padx=1)
     
     show_table = gui.Button(btn_frame, text="View Attendance Records (Table)",
                             command=lambda: attendance_table_display(images_wndw),
                             width=30,
                             height=1, 
-                            font=("Times New Roman", 15, "bold", "underline"), bg="#2196F3", fg="white")
+                            font=("Inter", 15, "bold", "underline"), 
+                            bg="#2196F3", 
+                            fg="white",
+                            borderwidth=3,
+                            relief="raised")
     show_table.pack(side="left", padx=1)
     
     reupload = gui.Button(btn_frame, text="Upload Different Student List (CSV)",
                           command=reupload_csv,
                           width=30,
                           height=1,
-                          font=("Times New Roman", 15, "bold"), bg="#808080", fg="black")  
+                          font=("Inter", 15, "bold"), 
+                          bg="#808080", 
+                          fg="black",
+                          borderwidth=3,
+                          relief="raised")  
     reupload.pack(side="left", padx=1)
     
-    note_label = gui.Label(images_wndw, text="> Note: Since this system relies on a pre-trained OCR model rather than a custom-trained one, for optimal accuracy in extracting CIN IDs, the uploaded images should be of at least medium quality. Poor-quality images may lead to incorrect extractions.",
-                           font=("Times New Roman", 11), 
-                           fg="white", 
-                           bg="#3a3a3a", 
-                           justify="center")
-    note_label.pack(pady=15, padx=1)
-    
-    note2_label = gui.Label(images_wndw, text=">> Recommendation: If you're using a CPU (no GPU) with this machine, we recommend importing 1 to 3 images at a time (at most) to ensure the service runs efficiently (this is optional). Since this model is slower on a CPU, switching to a GPU, if available, is highly recommended.",
-                            font=("Times New Roman", 10), 
+    note_label = gui.Label(images_wndw, text="> Note: Since this system relies on a pre-trained OCR model rather than a custom-trained one, for optimal accuracy in extracting CIN IDs, the uploaded images should be of at least medium quality. Poor-quality images may lead to incorrect extractions.\n>> Recommendation: If you're using a CPU (no GPU) with this machine, we recommend importing 1 to 3 images at a time (at most) to ensure the service runs efficiently (this is optional). Since this model is slower on a CPU, switching to a GPU, if available, is highly recommended.",
+                            font=("Merriweather", 9), 
                             fg="white", 
                             bg="#3a3a3a", 
-                            justify="center")
-    note2_label.pack(pady=15, padx=1)
+                            justify="center",
+                            borderwidth=1,
+                            relief="solid")
+    note_label.pack(pady=15, padx=1)
     
     logging.debug("Images window created successfully!\n")
-    logging.debug("Waiting for user to upload images file, view attendance table or re-upload a new list.\n")
+    logging.debug("Waiting for user to upload images file, capture cards, view attendance table or re-upload a new list.\n")
     
     images_wndw.deiconify()
     
