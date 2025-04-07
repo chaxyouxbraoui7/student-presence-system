@@ -1,3 +1,7 @@
+""" You can think of this script as the entry point for the Student Presence System application.
+It initializes the program, displays a splash screen, and then launches the main GUI interface for uploading the CSV file containing student information. """
+
+
 import os
 import sys
 import logging

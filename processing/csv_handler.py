@@ -19,7 +19,7 @@ print("\n\n")
 
 logging.debug("Starting CSV handling...\n")
 
-print("\n\n------------------------- Our CSV Database :) -------------------------\n")
+print("\n\n------------------------- Our CSV Database :) -------------------------\n\n")
 
 logging.debug("Checking data folder existence\n")
 data_folder = os.path.join(project_directory, 'data') # Checking the existence of `data` folder
