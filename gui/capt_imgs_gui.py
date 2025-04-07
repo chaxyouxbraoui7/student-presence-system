@@ -65,7 +65,7 @@ def images_interface():      # A function that opens the image upload interface
     log_title.pack(pady=(7))
 
     # Configuring the log widget to display processing messages
-    log_widget = scrolledtext.ScrolledText(images_wndw, height=25, width=150, wrap=gui.WORD, bg="#3a3a3a", fg="white", font=("Merriweather", 11, "bold"))
+    log_widget = scrolledtext.ScrolledText(images_wndw, height=15, width=150, wrap=gui.WORD, bg="#3a3a3a", fg="white", font=("Merriweather", 11, "bold"))
     log_widget.tag_config("header", foreground="blue", font=("Georgia", 15, "bold"))
     log_widget.tag_config("info", foreground="white", font=("Merriweather", 11, "bold"))
     log_widget.tag_config("info_msg", foreground="white", font=("Merriweather", 11, "bold"))
@@ -340,8 +340,11 @@ def images_interface():      # A function that opens the image upload interface
                 log_widget.config(state="disabled")
                 log_widget.see(gui.END)
 
-    btn_frame = gui.Frame(images_wndw, bg="#3a3a3a")
+    btn_frame = gui.Frame(images_wndw, bg="black")
     btn_frame.pack(pady=10)
+
+    btn_frame2 = gui.Frame(images_wndw, bg="black")
+    btn_frame2.pack(pady=10)
     
     import_imgs = gui.Button(btn_frame, text="Import Images For Attendance", 
                             command=upload_images,
@@ -365,7 +368,7 @@ def images_interface():      # A function that opens the image upload interface
                             relief="raised")
     capture_img.pack(side="left", padx=1)
     
-    show_table = gui.Button(btn_frame, text="View Attendance Records (Table)",
+    show_table = gui.Button(btn_frame2, text="View Attendance Records (Table)",
                             command=lambda: attendance_table_display(images_wndw),
                             width=30,
                             height=1, 
@@ -376,7 +379,7 @@ def images_interface():      # A function that opens the image upload interface
                             relief="raised")
     show_table.pack(side="left", padx=1)
     
-    reupload = gui.Button(btn_frame, text="Upload Different Student List (CSV)",
+    reupload = gui.Button(btn_frame2, text="Upload Different Student List (CSV)",
                           command=reupload_csv,
                           width=30,
                           height=1,
@@ -387,7 +390,7 @@ def images_interface():      # A function that opens the image upload interface
                           relief="raised")  
     reupload.pack(side="left", padx=1)
     
-    note_label = gui.Label(images_wndw, text="> Note: Since this system relies on a pre-trained OCR model rather than a custom-trained one, for optimal accuracy in extracting CIN IDs, the uploaded images should be of at least medium quality. Poor-quality images may lead to incorrect extractions.\n>> Recommendation: If you're using a CPU (no GPU) with this machine, we recommend importing 1 to 3 images at a time (at most) to ensure the service runs efficiently (this is optional). Since this model is slower on a CPU, switching to a GPU, if available, is highly recommended.",
+    note_label = gui.Label(images_wndw, text="> Note: Since this system relies on a pre-trained OCR model rather than a custom-trained one, for optimal accuracy in extracting CIN IDs, the uploaded images should be of at least medium quality.\nPoor-quality images may lead to incorrect extractions.\n\n>> Recommendation: If you're using a CPU (no GPU) with this machine, we recommend importing 1 to 3 images at a time (at most) to ensure the service runs efficiently (this is optional).\nSince this model is slower on a CPU, switching to a GPU, if available, is highly recommended.",
                             font=("Merriweather", 9), 
                             fg="white", 
                             bg="black", 
