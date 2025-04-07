@@ -1,5 +1,10 @@
-# **Student Attendance System**
+<p align="left">
 
+  <img src="gui/images&logo/logo.png" alt="icon" height="32" style="vertical-align: middle;"/>
+
+  <strong>Student Attendance System</strong>
+
+</p>
 ## Project Overview
 
 This is a Final Year Project (FYP) for the SMI department at "La Faculté Polydisciplinaire de Ouarzazate" - Ouarzazate - Morocco.
