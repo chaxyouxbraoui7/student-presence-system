@@ -43,7 +43,7 @@ def attendance_table_display(previous_window=None, direct_run=False): # A functi
 
     table_window.title("Student • Presence • System | Attendance Table")
 
-    window_centering(table_window, width_ratio=0.9, height_ratio=0.75)
+    window_centering(table_window, width_ratio=0.9, height_ratio=0.8)
 
     try:
         attendance_df = pnds.read_csv(attendance_path)
@@ -61,20 +61,20 @@ def attendance_table_display(previous_window=None, direct_run=False): # A functi
     # Creating a styling object to customize the table
     tab_style = ttk.Style()
     
-    tab_style.configure("Treeview.Heading", font=("Calibri", 22, "bold"))
+    tab_style.configure("Treeview.Heading", font=("Calibri", 15, "bold"))
     tab_style.configure("Treeview", font=("Verdana", 11))
     
     # Creating a frame to contain the table with a border
     tab_frame = gui.Frame(table_window, borderwidth=7, relief="ridge")
     tab_frame.pack(expand=True, fill="both")
     
-    tab_tree = ttk.Treeview(tab_frame, columns=list(attendance_df.columns), show="headings", height=20)    # Creating a Treeview widget to display the attendance table
+    tab_tree = ttk.Treeview(tab_frame, columns=list(attendance_df.columns), show="headings", height=22)    # Creating a Treeview widget to display the attendance table
     
     tab_tree.tag_configure("present", background="lightgreen")    # Defining a tag for rows where students are marked "Present"
             
     for col in attendance_df.columns:    # Looping through each column in the DataFrame and set up table headers
         tab_tree.heading(col, text=col, anchor="center")  # Setting the column heading text
-        tab_tree.column(col, anchor="center", width=275)  # Centering align content and setting the column width
+        tab_tree.column(col, anchor="center", width=100)  # Centering align content and setting the column width
     
     ids_count = counter()    # Initializing a counter for unique IDs
     
