@@ -1,7 +1,7 @@
 """ This script is the 2nd OCR one using PaddleOCR.
 It is the same as the previous one but with some modifications to the OCR engine and image processing techniques.
 You can use this module and test it on the system by modifing: ##from processing.ocr_re_process import ocr_, extracting_cin
-line in each file that used in to: ##from processing.ocr_re_process_pytesseract import ppocr_, extracting_cin`` """
+line in each file that used in to: ##from processing.ocr_re_process_paddel import ppocr_, extracting_cin`` """
 
 
 from paddleocr import PaddleOCR
@@ -22,6 +22,7 @@ def ppocr_(image_path):    # A function that performs OCR using PaddleOCR
         ocr_reader = PaddleOCR(use_angle_cls=True, lang='en')  # Initializing if not already done to avoid multiple initializations
           
     image = cv2.imread(image_path)  # Loading the image from the given file path using OpenCV
+    logging.error(f"Failed to load image: {image_path}")
     graysc_image = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)  # Converting the image from color to grayscale
     
     ocr_results = ocr_reader.ocr(graysc_image, cls=True)  # Performing the OCR on the grayscale image and returning detailed results (text, confidence, box) using cls
