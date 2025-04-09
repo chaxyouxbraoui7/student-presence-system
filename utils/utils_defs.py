@@ -65,7 +65,7 @@ if __name__ == "__main__":     # A direct execution of the file to test the func
 
         window_centering(odd, width_ratio=0.3, height_ratio=0.15)
 
-        img = PhotoImage(file = r"gui\images&logo\logo.png")    # Loading the PNG image as a PhotoImage object with the help of PIL
+        img = PhotoImage(file = r"gui\images&logo\logo.png")    # Loading the PNG image as a PhotoImage object with the help of tk
 
         odd.iconphoto(True, img)    # Setting the window icon to the PNG image
 
