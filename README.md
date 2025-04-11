@@ -168,5 +168,5 @@ This project is licensed under the terms of the **Creative Commons Attribution-N
 - **Commercial use is not permitted** without explicit written permission from the author(s).
 - If you modify or share this work, **you must provide proper credit and indicate changes**.
 
-[View Full License Text](LICENSE)
+[View Full License Text](LICENSE) | 
 [Learn More About CC BY-NC 4.0](https://creativecommons.org/licenses/by-nc/4.0/)
