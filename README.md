@@ -1,7 +1,7 @@
 <h1 align="center">Student Attendance System</h1>
 
 <p align="center">
-  <img src="gui/images&logo/logo.png" alt="Student Attendance System Logo" width="100"/>
+  <img src="gui/images&logo/logo.png" alt="Student Attendance System Logo" width="333"/>
 </p>
 
 ---
