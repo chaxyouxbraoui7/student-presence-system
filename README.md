@@ -1,59 +1,78 @@
-# <img src="gui/images&logo/logo.png" alt="icon" height="75" style="vertical-align: middle;"/> **Student Attendance System**
+<h1 align="center">Student Attendance System</h1>
+
+<p align="center">
+  <img src="gui/images&logo/logo.png" alt="Student Attendance System Logo" width="100"/>
+</p>
+
+---
+
+[![License: CC BY-NC 4.0](https://img.shields.io/badge/License-CC%20BY--NC%204.0-lightgrey.svg)](LICENSE)
+
+## 📑 Table of Contents
+
+- [Project Overview](#project-overview)
+- [Features](#features)
+- [Project Code Installation](#project-code-installation)
+- [Troubleshooting](#-troubleshooting)
+- [Notes](#-note)
+- [License](#license)
 
 ## Project Overview
 
 This is a Final Year Project (FYP) for the SMI department at "La Faculté Polydisciplinaire de Ouarzazate" - Ouarzazate - Morocco.
 
-# It Features  
+### Features
 
-four key functionalities:  
+#### This system includes four main functionalities:
 
-- **Student Data Import:** Upload a CSV file containing student details (**CIN, Numero, Nom, Prenom**). This file is stored as `students.csv`.
+- **Student Data Import** — Upload a CSV file with student details (**CIN, Numero, Nom, Prenom**). Stored as `students.csv`.
 
-- **CIN Card Processing:** Upload images of CIN cards, which are processed to extract CIN numbers using Optical Character Recognition (OCR) and regex. The extracted CINs are saved in `extracted_cin.csv`.
+- **CIN Card Processing** — Upload CIN card images. These are processed with OCR and regex to extract CIN numbers, saved in `cin_list.csv`.
 
-- **Capture Card Feature (Experimental):** Capture images of CIN cards using your laptop's camera. While this feature is still under development, please note that OCR accuracy may be limited due to the camera quality. Low-quality images can cause difficulties with CIN extraction, but we are actively working on improving this feature, insh'allah.
+- **Capture Card Feature** — Take real-time photos using your webcam. While it works well under good lighting and camera quality, OCR accuracy can drop in poor conditions.
 
-- **Automated Attendance Tracking:** The system compares the extracted CINs with the student CSV file, generates an attendance report, and saves it as `attendance.csv`. The attendance is displayed as a table in the GUI.
+- **Automated Attendance Tracking** — The system matches extracted CINs against the student list and generates `attendance.csv`, which is shown in the GUI.
 
+---
 
 ## Project Code Installation
 
+> [!TIP]
 > **You can skip this if you already know how**
 
-To set up the project on a local machine, follow the steps below :
+To set up the project on a local machine, follow the steps below:
 
 **Python Version :**
 
-This project is compatible with :
+Compatible with:
 
 ```bash
 Python 3.12.9
 ```
 
-Ensure you have this version installed before proceeding.
+###  Setup Steps:
 
-1. **Verify your Python version :**
+1. **Check your Python version before proceeding:**
 
-- To check your Python version, you can run : 
+- To check your Python version, you can run: 
 
 ```bash
 python --version
 ```
 
-- If you have multiple Python versions, you can use :
+- Or if you have multiple Python versions, you can use:
 
 ```bash
 python3 --version
 ```
 
-2. **Clone the repository :**
+2. **Clone the repository:**
 
 ```bash
    git clone https://github.com/chaxyouxbraoui7/student-presence-system.git
 ```
 
-3. **Navigate to the project directory :**
+3. **Navigate to the project directory:**
 
 ```bash
 cd student-presence-system
@@ -65,7 +84,7 @@ cd student-presence-system
 python -m venv venv
 ```
 
-5. **Activate the virtual environment :**
+5. **Activate the virtual environment:**
 
 - On Windows:
 
@@ -79,50 +98,75 @@ python -m venv venv
 source venv/bin/activate
 ```
 
-6. **Upgrade pip (Important) :**
+6. **Upgrade pip (Important):**
 
 ```bash
 python.exe -m pip install --upgrade pip
 ```
 
-7. **Install the required dependencies :**
+7. **Install the required dependencies:**
 
 ```bash
 python -m pip install -r requirements.txt
 ```
 
-**If the above fails, you can try :**
+**If the above fails, you can try:**
 
 ```bash
 pip install --no-cache-dir -r requirements.txt
 ```
 
-8. **Then finally run the system :**
+8. **Then finally run the system:**
 
 ```bash
 python gui/main.py
 ```
 
-## Troubleshooting
+---
 
-- **Issue:** `pip install` doesn't work.
+> [!WARNING]
+>
+> ## Troubleshooting
+> 
+> - **Issue:** `pip install` doesn't work.
+> 
+>   **Solution:** Ensure your virtual environment is activated.
+> 
+> - **Issue:** Program won’t start.
+> 
+>   **Solution 1:** Check your Python version.
+> 
+>   **Solution 2:** Make sure you're in the project directory `cd .\student-presence-system\`.
+> 
+> - **Issue:** Dependencies won’t install.
+> 
+>   **Solution:** Try installing packages individually.
 
-  **Solution:** Ensure you have activated the virtual environment before running `pip install`.
+  ---
 
-- **Issue:** The program doesn't run or shows an error when starting.
+> [!NOTE]
+> 
+> ## Since the system relies on a pre-trained OCR model rather than a custom-trained one and for optimal accuracy in extracting CIN IDs:
+>
+> - Ensure the uploaded images should be clear and of a reasonable quality (or at least of mid-quality).
+> 
+> - The capture feature is faster and more automated, but only works reliably with a good camera and lighting setup.
+>
+> - Poor-quality images may lead to incorrect extractions.
+>
+> - For best OCR results, we highly recommend to upload high-quality, well-lit CIN card images.
+> 
+> - **Contributions are welcome!** Feel free to submit pull requests to improve this system, especially the *capture* functionality or any other enhancements.
 
-  **Solution 1:** Ensure you have the correct Python version installed (3.12.9).
+---
 
-  **Solution 2:** Ensure you have navigated to the project directory by running `cd .\student-presence-system\`
+# License
 
-- **Issue:** The libraries don't install when running `pip install -r requirements.txt`.
+This project is licensed under the terms of the **Creative Commons Attribution-NonCommercial 4.0 International (CC BY-NC 4.0)** license.
 
-  **Solution:** Try installing them one by one.
+- The project is intended **strictly for educational, academic, or personal learning purposes**.
+- **Commercial use is not permitted** without explicit written permission from the author(s).
+- If you modify or share this work, **you must provide proper credit and indicate changes**.
 
-## Notes
-
-- The project is intended for educational purposes only and cannot be used commercially!
-
-- For optimal accuracy in extracting CIN IDs, the uploaded images should be and clear and of a reasonable quality (or at least of mid-quality), since the system relies on a pre-trained OCR model rather than a custom-trained one, poor-quality images may lead to incorrect extractions.
-
-- **Contributions are welcome!** and we really encourage pull requests or suggestions to help improve the system, especially for the CIN card capture feature or other new ideas!
+[View Full License Text](LICENSE)
+[Learn More About CC BY-NC 4.0](https://creativecommons.org/licenses/by-nc/4.0/)

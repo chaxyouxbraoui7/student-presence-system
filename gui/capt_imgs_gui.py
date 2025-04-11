@@ -283,13 +283,17 @@ def images_interface():      # A function that opens the image upload interface
         if os.path.exists(img_nm_path):
             logging.debug(f"Enhancing the captured image quality: {img_nm_path}\n")
             captured_img = Image.open(img_nm_path)
-
+            
             # Enhancing the image quality
+            # Value 1.0 for every ImageEnhance is: Original contrast, original brightness and original sharpness ~ Going up is more effect and down is the opposite
+            enhancer = ImageEnhance.Brightness(captured_img)
+            enhanced_img = enhancer.enhance(1.25)
+            
             enhancer = ImageEnhance.Contrast(captured_img)
             enhanced_img = enhancer.enhance(2)
 
             enhancer = ImageEnhance.Sharpness(enhanced_img)
-            enhanced_img = enhancer.enhance(2)
+            enhanced_img = enhancer.enhance(1)
 
             enhanced_img.save(img_nm_path)
             logging.debug(f"Enhanced image saved as {img_nm_path}\n")
