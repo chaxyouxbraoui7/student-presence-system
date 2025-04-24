@@ -48,13 +48,13 @@ def ocr_pytss(image_path):
         ocr_config = r'--oem 1 --psm 6'        # Configuring Tesseract with high accuracy, and assuming a single uniform block of text
         
         # --oem: OCR Engine Mode ~ 0. Lagacy egine only (The OG engine - Tesseract 3)
-        # 1. LSTM (Long short-term memory engien - Tesseract 4/5)
+        # 1. LSTM (Long short-term memory engine - Tesseract 4/5)
         # 2. Legacy & LSTM
         # 3. Default (It auto chooses the best engine based on the structure given)
         
-        ## --psm: Page Segmentation Mode ~ 0. OCD only (Orientation & script detection)
+        ## --psm: Page Segmentation Mode ~ 0. OSD only (Orientation & script detection)
         ## 1. Automatic page segmentation along with OSD
-        ## 2. Same as `1` but no OCD and no OCR this time lol
+        ## 2. Same as `1` but no OSD and no OCR this time lol
         ## 3. Same as `2` but this time there is OCR and the segmentation is fully auto
         ## 4. Assumes a single column of text of variable sizes
         ## 5. Assumes a single uniform block of vertically aligned text
