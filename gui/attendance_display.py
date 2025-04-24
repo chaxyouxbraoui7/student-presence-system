@@ -33,7 +33,7 @@ def attendance_table_display(previous_window=None, direct_run=False): # A functi
         previous_window.lift()
         
     if not os.path.exists(attendance_path):    # Checking if the attendance file exists before proceeding
-        messagebox.showwarning("No Updated Table Yet", "Attendance table is not updated yet!\nUpload some images to update it.")
+        messagebox.showwarning("No Updated Table Yet", "Attendance table is not updated yet!")
         logging.error("Attendance table not found.\n") 
         
         if direct_run:
