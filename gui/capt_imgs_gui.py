@@ -16,10 +16,10 @@ sys.path.append(project_directory)
 from tkinter import filedialog, messagebox, scrolledtext
 from PIL import Image, ImageTk, ImageEnhance
 from gui.csv_gui import csv_upld_interface  
-from processing.ocr_re_process import ocr_, extracting_cin  # OCR-related functions (EasyOCR in default, but you can use other models by changing the import)
+from processing.ocr_re_process_paddel import ppocr_, extracting_cin  # OCR-related functions (you can use other models by changing the import)
 from processing.csv_handler import cin_list_save, attendance_report_table_gen
 from attendance_display import attendance_table_display
-from utils.utils_defs import window_centering, counter
+from utils.utils_defs import window_centering, center_camera_wndw, counter
 
 data_folder = os.path.join(project_directory, 'data') # Checking the existence of `data` folder
 
@@ -68,10 +68,8 @@ def images_interface():      # A function that opens the image upload interface
     log_widget = scrolledtext.ScrolledText(images_wndw, height=15, width=150, wrap=gui.WORD, bg="#3a3a3a", fg="white", font=("Merriweather", 11, "bold"))
     log_widget.tag_config("header", foreground="blue", font=("Georgia", 15, "bold"))
     log_widget.tag_config("info", foreground="white", font=("Merriweather", 11, "bold"))
-    log_widget.tag_config("info_msg", foreground="white", font=("Merriweather", 11, "bold"))
     log_widget.tag_config("success", foreground="lightgreen", font=("Merriweather", 11, "bold"))
-    log_widget.tag_config("warning", foreground="yellow", font=("Merriweather", 11, "bold"))
-    log_widget.tag_config("error", foreground="red", font=("Merriweather", 11, "bold"))
+    log_widget.tag_config("warning", foreground="red", font=("Merriweather", 11, "bold"))
     log_widget.pack(pady=15)
     log_widget.config(state="disabled")
     
@@ -134,6 +132,8 @@ def images_interface():      # A function that opens the image upload interface
         attendance_report_table_gen()
         logging.debug("Attendance report table generated.\n")
         
+        attendance_table_display()
+        
         if not success:
             
             log_widget.config(state="normal")
@@ -153,11 +153,10 @@ def images_interface():      # A function that opens the image upload interface
         
         start_msg = "==================== Processing Started ====================\n\n"
         end_msg = "==================== Processing Completed ==================\n\n"
-        info_msg = "You can now:\n\n• Import more images\n• Capture CIN cards\n• View the attendance table\n• Re-upload new lists\n\n"
         
         log_widget.config(state="normal")
         log_widget.insert(gui.END, f"\n{start_msg}\n", "header")
-        log_widget.insert(gui.END, "The system is now processing the uploaded images to extract CIN IDs.\n\n", "info")
+        log_widget.insert(gui.END, "The system is currently processing the uploaded images to extract the CIN numbers.\n\n", "info")
         log_widget.config(state="disabled")
         log_widget.see(gui.END)
         
@@ -185,7 +184,7 @@ def images_interface():      # A function that opens the image upload interface
                 logging.debug(f"Starting the OCR processing for image: {image_path}\n")
                 
                 ocr_start_time = time.time()
-                ocr_result = ocr_(image_path)
+                ocr_result = ppocr_(image_path)
                 ocr_end_time = time.time()
                 
                 print("\n")
@@ -213,7 +212,7 @@ def images_interface():      # A function that opens the image upload interface
                     cin_list_save(cin_id)
                     
                 else:
-                    log_widget.insert(gui.END, f"\n⨻ {message_count} - No CIN ID found in {image_file} (Check your actual list since the model might struggle!!!)\n\n\n", "warning")
+                    log_widget.insert(gui.END, f"\n⨻ {message_count} - No CIN ID found in {image_file} (Check your actual list since the model might struggle!)\n\n\n", "warning")
                     logging.warning(f"No CIN ID found in {image_file}\n")
                     success = False
                 
@@ -224,11 +223,6 @@ def images_interface():      # A function that opens the image upload interface
             
             log_widget.config(state="normal")
             log_widget.insert(gui.END, f"\n{end_msg}\n", "header")
-            log_widget.config(state="disabled")
-            log_widget.see(gui.END)
-            
-            log_widget.config(state="normal")
-            log_widget.insert(gui.END, f"\n{info_msg}\n", "info_msg")
             log_widget.config(state="disabled")
             log_widget.see(gui.END)
             
@@ -253,7 +247,9 @@ def images_interface():      # A function that opens the image upload interface
         logging.debug("Starting the capture_card function.\n")
 
         cap = cv2.VideoCapture(0)  # Opening & and holding the default camera (0 for built-in camera, 1 for external camera)
-        cv2.namedWindow("Capture CIN Card") # Creating a window to display the camera feed
+        wndw_nm = "Capture CIN Card" # Naming the window to display the camera feed
+        
+        center_camera_wndw(wndw_nm, 640, 480) # Centring the display window
 
         while True: # Looping the to capture the image
             ret, frame = cap.read() # Reading the frame from the camera
@@ -261,9 +257,15 @@ def images_interface():      # A function that opens the image upload interface
                 logging.error("Failed to capture image from camera.\n")
                 break # Exiting the loop if the camera is not available or fails to capture
             
-            cv2.imshow("Capture CIN Card", frame) # Displaying the frame in the window
+            mror_frame = cv2.flip(frame, 1)  # Flipping the display horizontally 
+            cv2.imshow("Capture CIN Card", mror_frame) # Displaying the mirror_frame in the window
             
             key = cv2.waitKey(1) # Waiting for a key press
+            
+            if cv2.getWindowProperty("Capture CIN Card", cv2.WND_PROP_VISIBLE) < 1:
+                logging.debug("Window closed.\n")
+                break
+            
             if key % 256 == 27:  # ESC key to exit
                 logging.debug("ESC key pressed. Closing camera.\n")
                 break
@@ -300,18 +302,16 @@ def images_interface():      # A function that opens the image upload interface
 
             # Processing the captured and enhanced image
             success = process_ocr_on_images([img_nm_path], log_widget)
-            logging.debug("Finished processing captured image.\n")
+            logging.debug("Finished processing captured image.\n") 
 
             attendance_report_table_gen()
+            
+            attendance_table_display()
 
-            if success:
+            if not success:
+                
                 log_widget.config(state="normal")
-                log_widget.insert(gui.END, "You can now:\n\n• Import images\n• Capture more cards\n• View the attendance table\n• Re-upload new lists\n\n", "info")
-                log_widget.config(state="disabled")
-                log_widget.see(gui.END)
-            else:
-                log_widget.config(state="normal")
-                log_widget.insert(gui.END, "Please try importing or fix the CIN ID and try again!\n", "warning")
+                log_widget.insert(gui.END, "Please try the importing feature or make the CIN ID closer to the camera and try again!\n", "warning")
                 log_widget.config(state="disabled")
                 log_widget.see(gui.END)
 
@@ -365,7 +365,7 @@ def images_interface():      # A function that opens the image upload interface
                           relief="raised")  
     reupload.pack(side="left", padx=1)
     
-    note_label = gui.Label(images_wndw, text="> Note: Since this system relies on a pre-trained OCR model rather than a custom-trained one, for optimal accuracy in extracting CIN IDs, the uploaded images should be of at least medium quality.\nPoor-quality images may lead to incorrect extractions.\n\n>> Recommendation: If you're using a CPU (no GPU) with this machine, we recommend importing 1 to 3 images at a time (at most) to ensure the service runs efficiently (this is optional).\nSince this model is slower on a CPU, switching to a GPU, if available, is highly recommended.",
+    note_label = gui.Label(images_wndw, text="> Note: The capture feature is faster and more automated, but only works reliably with a good camera and lighting setup.\n\n>> Recommendation: For best OCR results, we highly recommend to upload high-quality, well-lit CIN card images.\nPoor-quality images may lead to incorrect extractions.",
                             font=("Merriweather", 9), 
                             fg="white", 
                             bg="black", 
