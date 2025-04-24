@@ -8,22 +8,13 @@
 
 [![License: CC BY-NC 4.0](https://img.shields.io/badge/License-CC%20BY--NC%204.0-lightgrey.svg)](LICENSE)
 
-## 📑 Table of Contents
-
-- [Project Overview](#project-overview)
-- [Features](#features)
-- [Project Code Installation](#project-code-installation)
-- [Troubleshooting](#-troubleshooting)
-- [Notes](#-note)
-- [License](#license)
-
 ## Project Overview
 
 This is a Final Year Project (FYP) for the SMI department at "La Faculté Polydisciplinaire de Ouarzazate" - Ouarzazate - Morocco.
 
 ### Features
 
-#### This system includes four main functionalities:
+***This system includes four main functionalities:***
 
 - **Student Data Import** — Upload a CSV file with student details (**CIN, Numero, Nom, Prenom**). Stored as `students.csv`.
 
@@ -38,7 +29,7 @@ This is a Final Year Project (FYP) for the SMI department at "La Faculté Polydi
 ## Project Code Installation
 
 > [!TIP]
-> **You can skip this if you already know how**
+> **You can skip this if you already know how!**
 
 To set up the project on a local machine, follow the steps below:
 
@@ -49,8 +40,6 @@ Compatible with:
 ```bash
 Python 3.12.9
 ```
-
-###  Setup Steps:
 
 1. **Check your Python version before proceeding:**
 
@@ -145,16 +134,12 @@ python gui/main.py
   ---
 
 > [!NOTE]
-> 
-> ## Since the system relies on a pre-trained OCR model rather than a custom-trained one and for optimal accuracy in extracting CIN IDs:
 >
-> - Ensure the uploaded images should be clear and of a reasonable quality (or at least of mid-quality).
-> 
 > - The capture feature is faster and more automated, but only works reliably with a good camera and lighting setup.
 >
-> - Poor-quality images may lead to incorrect extractions.
->
 > - For best OCR results, we highly recommend to upload high-quality, well-lit CIN card images.
+>
+> - Poor-quality images may lead to incorrect extractions.
 > 
 > - **Contributions are welcome!** Feel free to submit pull requests to improve this system, especially the *capture* functionality or any other enhancements.
 
@@ -168,5 +153,4 @@ This project is licensed under the terms of the **Creative Commons Attribution-N
 - **Commercial use is not permitted** without explicit written permission from the author(s).
 - If you modify or share this work, **you must provide proper credit and indicate changes**.
 
-[View Full License Text](LICENSE) | 
-[Learn More About CC BY-NC 4.0](https://creativecommons.org/licenses/by-nc/4.0/)
+[View Full License Text](LICENSE) | [Learn More About CC BY-NC 4.0](https://creativecommons.org/licenses/by-nc/4.0/)
