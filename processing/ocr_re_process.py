@@ -16,7 +16,7 @@ logging.basicConfig(level=logging.DEBUG, format='%(asctime)s - [ %(levelname)s ]
 
 ocr_reader = None
 
-def ocr_(image_path):    # A function that performs OCR using EasyOCR
+def ocr_easy(image_path):    # A function that performs OCR using EasyOCR
     global ocr_reader
     
     if ocr_reader is None: #this can be also the pro
@@ -125,7 +125,7 @@ if __name__ == "__main__":   # Testing the functions by direct execution
 
         logging.info(f"Performing OCR on: {image_path}\n")
         
-        ocr_results = ocr_(image_path)
+        ocr_results = ocr_easy(image_path)
 
         combined_result = ' '.join(ocr_results)
         total_characters = len(combined_result)
