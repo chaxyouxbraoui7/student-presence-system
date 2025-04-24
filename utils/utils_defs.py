@@ -2,6 +2,9 @@
 It also includes a test section that demonstrates these functions by creating a simple Tkinter-based GUI, 
 which displays an odd number counter in a centered window with logging for debugging. """
 
+import tkinter as tk
+import cv2
+
 
 def counter():    # A function that counts upwards indefinitely
     # Used to count the number of messages in the logwidget, the number of absent and present students in the list, the tracking progress for the attendace report.
@@ -24,7 +27,20 @@ def window_centering(window, width_ratio=1, height_ratio=1):    # A function to 
     x = (screen_width - width) // 2
     y = (screen_height - height) // 2
     
-    window.geometry(f"{width}x{height}+{x}+{y}")    # Setting the geometry of the window 
+    window.geometry(f"{width}x{height}+{x}+{y}")    # Setting the geometry of the window
+    
+def center_camera_wndw(win_nm, win_width=640, win_height=480): # A function to center the camera window display
+    camera_wndw = tk.Tk()
+    camera_wndw.withdraw()
+    screen_width = camera_wndw.winfo_screenwidth()
+    screen_height = camera_wndw.winfo_screenheight()
+    
+    x = (screen_width - win_width) // 2
+    y = (screen_height - win_height) // 2
+
+    cv2.namedWindow(win_nm, cv2.WINDOW_NORMAL)
+    cv2.resizeWindow(win_nm, win_width, win_height)
+    cv2.moveWindow(win_nm, x, y)
 
 
 if __name__ == "__main__":     # A direct execution of the file to test the functions before using them in other places
