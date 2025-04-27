@@ -18,3 +18,7 @@ __pycache__/
 # Ignore everything inside the data directory
 
 data/
+
+# Ignore the web folder (upcoming version)
+
+web/
