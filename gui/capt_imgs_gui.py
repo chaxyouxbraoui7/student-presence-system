@@ -25,10 +25,10 @@ data_folder = os.path.join(project_directory, 'data') # Checking the existence o
 
 logging.basicConfig(level=logging.DEBUG, format='%(asctime)s - [%(levelname)s] - %(message)s')
 
-def images_interface():      # A function that opens the image upload interface
+def images_interface():      # A function that opens the images upload interface
     logging.debug("Starting the images_interface function.\n")
     
-    image_paths = []  # Initializing the image paths as a list
+    image_paths = []  # Initializing the images paths as a list
     
     images_wndw = gui.Tk()
     images_wndw.withdraw()

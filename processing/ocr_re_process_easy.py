@@ -36,8 +36,8 @@ def extracting_cin(ocr_result):    # A function that extracts the CIN ID from th
     cin_regex = r"\b([A-Z]{1,2}\s*\d{4,8})\b"  # Defining a regex pattern for matching CIN ID formats
     
     # `[A-Z]{1,2}` for letters (for example: A1234 or AB1234) and `\d{4,8}` for digits (for example: AB1234 or AB123456 or A1234 or AB123456)
-    # \b is a word boundary anchor that ensures the matched CIN ID is isolated from surrounding text. Exmple usage: r"\([A-Z]{1,2}\s*\d{4,8})\b"
-    # It helps avoid matching CIN IDs that are part of a longer string (e.g., "startAB123456end").
+    # \b is a word boundary anchor that ensures the matched CIN ID is isolated from surrounding text."
+    # It helps avoid matching CIN IDs that are part of a longer string for ex "startAB123456end".
     
     re_match = re.search(cin_regex, ocr_result_combined)    # Searching for the CIN ID in the results using regex
     
