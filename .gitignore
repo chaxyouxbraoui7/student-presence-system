@@ -19,10 +19,6 @@ __pycache__/
 
 data/
 
-# Ignore onefile folder (the .exe folder handling)
-
-onefile/
-
 # Ignore the web folder (upcoming version)
 
 web/
