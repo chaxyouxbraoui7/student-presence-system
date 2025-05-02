@@ -314,6 +314,79 @@ def images_interface():      # A function that opens the images upload interface
                 log_widget.insert(gui.END, "Please try the importing feature or make the CIN ID closer to the camera and try again!\n", "warning")
                 log_widget.config(state="disabled")
                 log_widget.see(gui.END)
+                
+    '''def capture_card():
+        
+        def process_captured_image(img_path):
+            logging.debug(f"Enhancing the captured image: {img_path}\n")
+            captured_img = Image.open(img_path)
+        
+            enhancer = ImageEnhance.Brightness(captured_img)
+            enhanced_img = enhancer.enhance(1.25)
+        
+            enhancer = ImageEnhance.Contrast(enhanced_img)
+            enhanced_img = enhancer.enhance(2)
+        
+            enhancer = ImageEnhance.Sharpness(enhanced_img)
+            enhanced_img = enhancer.enhance(1)
+        
+            enhanced_img.save(img_path)
+            logging.debug(f"Enhanced image saved: {img_path}\n")
+        
+            success = process_ocr_on_images([img_path], log_widget)
+            logging.debug("Finished processing captured image.\n")
+    
+            if not success:
+                log_widget.config(state="normal")
+                log_widget.insert(gui.END, "Please try again or move the CIN card closer to the camera.\n", "warning")
+                log_widget.config(state="disabled")
+                log_widget.see(gui.END)
+        
+        logging.debug("Starting the capture_card function.\n")
+    
+        cap = cv2.VideoCapture(0)
+        wndw_nm = "Capture CIN Card"
+        center_camera_wndw(wndw_nm, 640, 480)
+        
+        logging.info("Camera ready. Press SPACE or ENTER to capture, ESC to exit.\n")
+        
+        capture_imgs_folder = os.path.join(data_folder, "capture-imgs")
+        os.makedirs(capture_imgs_folder, exist_ok=True)
+    
+        while True:
+            ret, frame = cap.read()
+            if not ret:
+                logging.error("Failed to capture image from camera.\n")
+                break
+    
+            mirror_frame = cv2.flip(frame, 1)
+            cv2.imshow(wndw_nm, mirror_frame)
+    
+            key = cv2.waitKey(1)
+    
+            if cv2.getWindowProperty(wndw_nm, cv2.WND_PROP_VISIBLE) < 1:
+                logging.debug("Window closed manually.\n")
+                break
+    
+            if key % 256 == 27:
+                logging.debug("ESC key pressed. Exiting capture.\n")
+                break
+            
+            elif key % 256 == 32 or key % 256 == 13:
+                cap_card_tm = datetime.datetime.now().strftime("%Y-%m-%d-%H-%M-%S")
+                img_nm = f"{cap_card_tm}_cin_card.png"
+                img_nm_path = os.path.join(capture_imgs_folder, img_nm)
+                cv2.imwrite(img_nm_path, frame)
+                
+                logging.debug(f"Captured image saved as {img_nm_path}\n")
+                
+                process_captured_image(img_nm_path)
+    
+        cap.release()
+        cv2.destroyAllWindows()
+    
+        attendance_report_table_gen()
+        attendance_table_display()'''
 
     btn_frame = gui.Frame(images_wndw, bg="black")
     btn_frame.pack(pady=10)
