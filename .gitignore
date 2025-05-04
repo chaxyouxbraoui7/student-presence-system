@@ -21,4 +21,8 @@ data/
 
 # Ignore the web folder (upcoming version)
 
-web/
+web-ver/
+
+# Ignore the mobile folder (main upcoming version)
+
+mobile-ver/
