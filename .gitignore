@@ -26,3 +26,7 @@ web-ver/
 # Ignore the mobile folder (main upcoming version)
 
 mobile-ver/
+
+# Ignore the notes file
+
+notes.txt
