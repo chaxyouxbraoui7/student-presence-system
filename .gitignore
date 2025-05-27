@@ -19,14 +19,6 @@ __pycache__/
 
 data/
 
-# Ignore the web folder (upcoming version)
-
-web-ver/
-
-# Ignore the mobile folder (main upcoming version)
-
-mobile-ver/
-
 # Ignore the notes file
 
 notes.txt

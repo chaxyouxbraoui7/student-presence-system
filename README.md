@@ -1,8 +1,9 @@
-<h1 align="center">Student Attendance System</h1>
-
-<p align="center">
-  <img src="gui/images&logo/logo.png" alt="Student Attendance System Logo" width="225"/>
-</p>
+<table align="center">
+  <tr>
+    <td><img src="gui/images&logo/logo.png" alt="Student Attendance System Logo" width="111"></td>
+    <td><h1 style="font-size: 1.75em;">Student Attendance System</h1></td>
+  </tr>
+</table>
 
 ---
 
@@ -149,7 +150,7 @@ python gui/main.py
 
 This project is licensed under the terms of the **Creative Commons Attribution-NonCommercial 4.0 International (CC BY-NC 4.0)** license.
 
-- The project is intended **strictly for educational, academic, or personal learning purposes**.
+- The project is intended **strictly for educational, academic, and personal learning purposes**.
 - **Commercial use is not permitted** without explicit written permission from the author(s).
 - If you modify or share this work, **you must provide proper credit and indicate changes**.
 
