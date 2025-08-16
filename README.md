@@ -116,7 +116,7 @@ python gui/main.py
 
 ## Screenshots & Results
 
-> **Note:** These screenshots have been taken from the French version of the project, which you can find [here](https://github.com/chaxyouxbraoui7/student-presence-system/blob/main/student-presence-system-fr.zip).
+> [!NOTE] These screenshots have been taken from the French version of the project, which you can find [here](https://github.com/chaxyouxbraoui7/student-presence-system/blob/main/student-presence-system-fr.zip).
 
 ---
 
