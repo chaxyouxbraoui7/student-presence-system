@@ -114,6 +114,60 @@ python gui/main.py
 
 ---
 
+## Screenshots & Results
+
+1. ### Home Screen
+
+![Home Screen](gui\images&logo\screenshots\inter1.png)
+
+This first interface represents the home screen that appears for two seconds after launching the program or application, to welcome the user.
+
+---
+
+2. ### Upload Interface
+
+![Upload Interface](gui\images&logo\screenshots\inter2.png)
+
+---
+
+3. ### File Selection Dialog
+
+![File Selection](gui\images&logo\screenshots\inter3.png)
+
+After the home screen disappears, the user can upload the CSV file containing the required columns:
+
+![CSV File Example](gui\images&logo\screenshots\csv_file.png)
+
+Or they can skip the upload if the file has already been uploaded and the program was closed by accident in the next interfaces.
+
+---
+
+4. ### Main Interface for Image Processing and CIN Extraction
+
+![Main Processing Interface](gui\images&logo\screenshots\inter4.png)
+
+---
+
+5. ### Image Selection Dialog
+
+![Image Selection Dialog](gui\images&logo\screenshots\inter5.png)
+
+Once the user has successfully uploaded the file, the interface allows uploading pre-existing images or capturing new ones to launch the main service of the program.
+
+---
+
+6. ### Processing Log
+
+![Processing Log](gui\images&logo\screenshots\inter6.png)
+
+---
+
+7. ### Attendance Status Table
+
+![Attendance Table](gui\images&logo\screenshots\inter7.png)
+
+---
+
 > [!WARNING]
 >
 > ## Troubleshooting
