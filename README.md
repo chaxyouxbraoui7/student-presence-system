@@ -116,9 +116,13 @@ python gui/main.py
 
 ## Screenshots & Results
 
+> **Note:** These screenshots have been taken from the French version of the project, which you can find [here](https://github.com/chaxyouxbraoui7/student-presence-system/blob/main/student-presence-system-fr.zip).
+
+---
+
 1. ### Home Screen
 
-![Home Screen](gui\images&logo\screenshots\inter1.png)
+![Home Screen](gui/images&logo/screenshots/inter1.png)
 
 This first interface represents the home screen that appears for two seconds after launching the program or application, to welcome the user.
 
@@ -126,17 +130,17 @@ This first interface represents the home screen that appears for two seconds aft
 
 2. ### Upload Interface
 
-![Upload Interface](gui\images&logo\screenshots\inter2.png)
+![Upload Interface](gui/images&logo/screenshots/inter2.png)
 
 ---
 
 3. ### File Selection Dialog
 
-![File Selection](gui\images&logo\screenshots\inter3.png)
+![File Selection](gui/images&logo/screenshots/inter3.png)
 
 After the home screen disappears, the user can upload the CSV file containing the required columns:
 
-![CSV File Example](gui\images&logo\screenshots\csv_file.png)
+![CSV File Example](gui/images&logo/screenshots/csv_file.png)
 
 Or they can skip the upload if the file has already been uploaded and the program was closed by accident in the next interfaces.
 
@@ -144,13 +148,13 @@ Or they can skip the upload if the file has already been uploaded and the progra
 
 4. ### Main Interface for Image Processing and CIN Extraction
 
-![Main Processing Interface](gui\images&logo\screenshots\inter4.png)
+![Main Processing Interface](gui/images&logo/screenshots/inter4.png)
 
 ---
 
 5. ### Image Selection Dialog
 
-![Image Selection Dialog](gui\images&logo\screenshots\inter5.png)
+![Image Selection Dialog](gui/images&logo/screenshots/inter5.png)
 
 Once the user has successfully uploaded the file, the interface allows uploading pre-existing images or capturing new ones to launch the main service of the program.
 
@@ -158,13 +162,13 @@ Once the user has successfully uploaded the file, the interface allows uploading
 
 6. ### Processing Log
 
-![Processing Log](gui\images&logo\screenshots\inter6.png)
+![Processing Log](gui/images&logo/screenshots/inter6.png)
 
 ---
 
 7. ### Attendance Status Table
 
-![Attendance Table](gui\images&logo\screenshots\inter7.png)
+![Attendance Table](gui/images&logo/screenshots/inter7.png)
 
 ---
 
